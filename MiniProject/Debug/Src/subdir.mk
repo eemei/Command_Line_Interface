@@ -7,18 +7,21 @@ C_SRCS += \
 ../Src/main.c \
 ../Src/stm32f1xx_hal_msp.c \
 ../Src/stm32f1xx_it.c \
+../Src/strtonum.c \
 ../Src/system_stm32f1xx.c 
 
 OBJS += \
 ./Src/main.o \
 ./Src/stm32f1xx_hal_msp.o \
 ./Src/stm32f1xx_it.o \
+./Src/strtonum.o \
 ./Src/system_stm32f1xx.o 
 
 C_DEPS += \
 ./Src/main.d \
 ./Src/stm32f1xx_hal_msp.d \
 ./Src/stm32f1xx_it.d \
+./Src/strtonum.d \
 ./Src/system_stm32f1xx.d 
 
 

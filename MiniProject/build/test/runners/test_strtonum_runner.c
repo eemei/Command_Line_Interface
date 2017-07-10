@@ -40,26 +40,6 @@ extern void test_strtonum_given_0x123123_abc_expect_whitespace(void);
 extern void test_strtonum_given_write_0x123123_abc_expect_whitespace(void);
 extern void test_strtonum_given__0x124556__0x1234_123_expect_whitespace(void);
 extern void test_string_compare_insensitive_given_wRite_and_write(void);
-extern void test_string_compare_insensitive_given_write_and_writee(void);
-extern void test_string_compare_insensitive_given_write_and_write(void);
-extern void test_loop(void);
-extern void test_loop_with_2(void);
-extern void test_loop_with_3(void);
-extern void test_getNumber_given_write_expect_ERR(void);
-extern void test_getNumber_given_write__0X123456_expect_ERR(void);
-extern void test_getNumber_given_write__0x123456_expect_ERR(void);
-extern void test_getNumber_given__0x123456_write_expect_ERR(void);
-extern void test_getNumber_given__0x123456_writ_expect_ERR(void);
-extern void test_getNumber_given_123456_reaD_expect_ERR(void);
-extern void test_getNumber_given__1x123456_wrITe_00x123_expect_ERR(void);
-extern void test_getNumber_given_0x1_expect_1(void);
-extern void test_getNumber_given_20x1234_124_expect_ERR(void);
-extern void test_getNumber_given_02x1234_expect_ERR(void);
-extern void test_getNumber_given_write__0x1234_0x1_1_3expect_ERR(void);
-extern void test_loop_given_write__0x1234_0x1_1_3expect_ERR(void);
-extern void test_sscanf_given_write_read(void);
-extern void test_sscanf_given__test(void);
-extern void test_sscanf_given__the_write(void);
 
 
 /*=======Test Reset Option=====*/
@@ -85,26 +65,6 @@ int main(void)
   RUN_TEST(test_strtonum_given_write_0x123123_abc_expect_whitespace, 75);
   RUN_TEST(test_strtonum_given__0x124556__0x1234_123_expect_whitespace, 84);
   RUN_TEST(test_string_compare_insensitive_given_wRite_and_write, 93);
-  RUN_TEST(test_string_compare_insensitive_given_write_and_writee, 99);
-  RUN_TEST(test_string_compare_insensitive_given_write_and_write, 99);
-  RUN_TEST(test_loop, 113);
-  RUN_TEST(test_loop_with_2, 123);
-  RUN_TEST(test_loop_with_3, 133);
-  RUN_TEST(test_getNumber_given_write_expect_ERR, 144);
-  RUN_TEST(test_getNumber_given_write__0X123456_expect_ERR, 153);
-  RUN_TEST(test_getNumber_given_write__0x123456_expect_ERR, 164);
-  RUN_TEST(test_getNumber_given__0x123456_write_expect_ERR, 175);
-  RUN_TEST(test_getNumber_given__0x123456_writ_expect_ERR, 186);
-  RUN_TEST(test_getNumber_given_123456_reaD_expect_ERR, 197);
-  RUN_TEST(test_getNumber_given__1x123456_wrITe_00x123_expect_ERR, 208);
-  RUN_TEST(test_getNumber_given_0x1_expect_1, 221);
-  RUN_TEST(test_getNumber_given_20x1234_124_expect_ERR, 230);
-  RUN_TEST(test_getNumber_given_02x1234_expect_ERR, 241);
-  RUN_TEST(test_getNumber_given_write__0x1234_0x1_1_3expect_ERR, 250);
-  RUN_TEST(test_loop_given_write__0x1234_0x1_1_3expect_ERR, 266);
-  RUN_TEST(test_sscanf_given_write_read, 278);
-  RUN_TEST(test_sscanf_given__test, 288);
-  RUN_TEST(test_sscanf_given__the_write, 298);
 
   return (UnityEnd());
 }

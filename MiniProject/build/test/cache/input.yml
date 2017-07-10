@@ -67,10 +67,10 @@
   :testfail: ".fail"
   :dependencies: ".d"
 :unity:
-  :vendor_path: C:/Users/liewe/Desktop/Mei/MiniProject/vendor/ceedling/vendor
+  :vendor_path: C:/Users/liewe/Desktop/Command_Line_Interface/MiniProject/vendor/ceedling/vendor
   :defines: []
 :cmock:
-  :vendor_path: C:/Users/liewe/Desktop/Mei/MiniProject/vendor/ceedling/vendor
+  :vendor_path: C:/Users/liewe/Desktop/Command_Line_Interface/MiniProject/vendor/ceedling/vendor
   :defines: []
   :mock_prefix: mock_
   :when_no_prototypes: :warn
@@ -88,7 +88,7 @@
   :verbosity: 3
   :unity_helper: false
 :cexception:
-  :vendor_path: C:/Users/liewe/Desktop/Mei/MiniProject/vendor/ceedling/vendor
+  :vendor_path: C:/Users/liewe/Desktop/Command_Line_Interface/MiniProject/vendor/ceedling/vendor
   :defines: []
 :test_runner:
   :includes: []
@@ -181,7 +181,7 @@
   :arguments: []
 :plugins:
   :load_paths:
-  - C:/Users/liewe/Desktop/Mei/MiniProject/vendor/ceedling/plugins
+  - C:/Users/liewe/Desktop/Command_Line_Interface/MiniProject/vendor/ceedling/plugins
   - vendor/ceedling/plugins
   :enabled:
   - stdout_pretty_tests_report

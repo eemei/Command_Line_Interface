@@ -1,4 +1,6 @@
 #include "strtonum.h"
+#include <string.h>
+
 
 
 /**
@@ -49,7 +51,7 @@ int getNumber(char  **str)
       if(*ptr == '0')
       {
         detectHex = ptr;
-        (*detectHex++);
+        (detectHex++);
         if(*detectHex == 'x' || *detectHex == 'X'){
           val = strtol(*str, &endptr, baseHex);
           if((val == LONG_MAX || val == LONG_MIN) && errno == ERANGE)
@@ -76,7 +78,7 @@ int getNumber(char  **str)
                 *str = ptr;
                 return -1;
               }
-              *ptr++;
+              ptr++;
             }
             *str = ptr;
             return -1;
@@ -99,7 +101,7 @@ int getNumber(char  **str)
               *str = ptr;
               return -1;
             }
-            *ptr++;
+            ptr++;
           }
           *str = ptr;
           return -1;
@@ -110,7 +112,7 @@ int getNumber(char  **str)
     }
     if(isalpha((char)*ptr)){
       sscanf(ptr, "%s", data);
-      if (strcmpInsensitive(aWrite, data) == 0){
+      if (strcmpInsensitive(data, aWrite) == 0){
         while(*ptr != '\0')
         {
           if(*ptr == ' ')
@@ -123,34 +125,34 @@ int getNumber(char  **str)
             *str = ptr;
             return 2;
           }
-          *ptr++;
+          ptr++;
         }
         *str = ptr;
         return 2;
       }
-      else if (strcmpInsensitive(bRead, data) == 0){
+      else if (strcmpInsensitive(data, bRead) == 0){
         while(*ptr != '\0')
         {
           if(*ptr == ' ')
           {
             *str = ptr;
-            return 2;
+            return 3;
           }
           if(*ptr == '\t')
           {
             *str = ptr;
-            return 2;
+            return 3;
           }
-          *ptr++;
+          ptr++;
         }
         *str = ptr;
-        return 2;
+        return 3;
       }
       return -1;
     }
     else
     {
-      *ptr++;
+      ptr++;
       *str = ptr;
       getNumber (str); 
     }
@@ -162,10 +164,15 @@ int getNumber(char  **str)
 /**
 * compare two strings which in case insensitive
 */
-int strcmpInsensitive(char* a, char* b)
+
+
+int strcmpInsensitive(char a[], char* b)
 {
   int cmp;
-  cmp = strcmpi(a, b);
+  int i;
+  for (i = 0; a[i] != '\0'; i++)
+    a[i] = (char)tolower(a[i]);
+  cmp = strcmp(a, b);
   return cmp;
 }
  

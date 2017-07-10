@@ -6,8 +6,9 @@
 #include <ctype.h>
 #include <limits.h>
 #include <string.h>
+#include <ctype.h>
 
 int getNumber(char  **str);
-int strcmpInsensitive(char* a, char* b);
+int strcmpInsensitive(char a[], char* b);
 int loop(char **str);
 #endif // _strtonum_H

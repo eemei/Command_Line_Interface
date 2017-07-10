@@ -1,0 +1,6 @@
+23:46:29 **** Incremental Build of configuration Debug for project tcb ****
+make all 
+make: Nothing to be done for `all'.
+
+23:46:30 Build Finished (took 620ms)
+

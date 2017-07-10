@@ -1,6 +1,6 @@
-16:45:05 **** Incremental Build of configuration Debug for project MiniProject ****
+23:46:38 **** Incremental Build of configuration Debug for project MiniProject ****
 make all 
 make: Nothing to be done for `all'.
 
-16:45:05 Build Finished (took 110ms)
+23:46:39 Build Finished (took 721ms)
 

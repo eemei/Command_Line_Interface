@@ -91,19 +91,20 @@ void test_strtonum_given__0x124556__0x1234_123_expect_whitespace(void)
 }
 
 void test_string_compare_insensitive_given_wRite_and_write(void){
-  char *a = "wRite";
+  char a[] = "wRite";
   char *b = "write";
   int cmp = strcmpInsensitive(a, b);
   TEST_ASSERT_EQUAL(0, cmp);
 }
+
 void test_string_compare_insensitive_given_write_and_writee(void){
-  char *a = "write";
+  char a[] = "write";
   char *b = "writee";
   int cmp = strcmpInsensitive(a, b);
   TEST_ASSERT_EQUAL(-1, cmp);
 }
 void test_string_compare_insensitive_given_write_and_write(void){
-  char *a = "write";
+  char a[] = "write";
   char *b = "write";
   int cmp = strcmpInsensitive(a, b);
   TEST_ASSERT_EQUAL(0, cmp);
@@ -200,7 +201,7 @@ void test_getNumber_given_123456_reaD_expect_ERR(void)
   long val = getNumber(&str);
   TEST_ASSERT_EQUAL(123456, val);  
   val = getNumber(&str);
-  TEST_ASSERT_EQUAL(2, val);
+  TEST_ASSERT_EQUAL(3, val);
   val = getNumber(&str);
   TEST_ASSERT_EQUAL(-1, val);
 } 
@@ -303,4 +304,4 @@ void test_sscanf_given__the_write(void)
   n = sscanf(str, "%*[\t] the %s", data);
   printf("%s\n\n", data);
   TEST_ASSERT_EQUAL(1,n);
-}  
+}

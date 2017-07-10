@@ -41,6 +41,13 @@
 
 /* USER CODE BEGIN Includes */
 #include <string.h>
+#include "strtonum.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <ctype.h>
+#include <limits.h>
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -50,8 +57,7 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-//char *TxData = "hello\r\n";
-//uint8_t RxData[10];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,31 +68,64 @@ static void MX_SPI1_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+extern void initialise_monitor_handles(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+#define MAXCLISTRING	3 // Biggest string the user will type
+uint8_t rxBuffer[MAXCLISTRING] = {0}; // where we store that one character that just came in
+uint8_t rxString[MAXCLISTRING]; // where we build our string from characters coming in
+int rxindex = 0; // index for going though rxString
 
+HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	char* result ;
+	result = &rxString[0];
+    __HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
+
+    int i = 0;
+
+    printf("%s\r\n",rxBuffer);  // Echo the character that caused this callback so the user can see what they are typing
+
+    if (rxBuffer == 8 || rxBuffer == 127) // If Backspace or del
+    {
+       printf(" \b"); // "\b space \b" clears the terminal character. Remember we just echoced a \b so don't need another one here, just space and \b
+        rxindex--;
+        if (rxindex < 0) rxindex = 0;
+    }
+
+    else if (rxBuffer == '\n' || rxBuffer == '\r') // If Enter
+    {
+    	getNumber(&result);
+        rxString[rxindex] = 0;
+        rxindex = 0;
+        for (i = 0; i < MAXCLISTRING; i++) rxString[i] = 0; // Clear the string buffer
+    }
+
+    else
+    {
+        rxString[rxindex] = rxBuffer[0]; // Add that character to the string
+        rxindex++;
+        if (rxindex > MAXCLISTRING) // User typing too much, we can't have commands that big
+        {
+            rxindex = 0;
+            for (i = 0; i < MAXCLISTRING; i++) rxString[i] = 0; // Clear the string buffer
+            printf("\r\nConsole> ");
+        }
+    }
+}
 /* USER CODE END 0 */
 
 int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	uint8_t TxData = 0xf1;
-	uint8_t receive;
-	uint16_t Size = 0xFF;
-	uint32_t Timeout = 0;		// 0 second
+
 	uint32_t Address;//writing address
 	uint32_t type_Program = 1; // last page of starting address
 	uint64_t Data = 1;
 	Address = 0x08007C00 +4;
-	uint8_t SPIz_Buffer_Tx[4] = {0x8F, 0x2F, 0x4F};
-			/*, 0x54, 0x55, 0x56, 0x57,
-	                                      0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5D, 0x5E,
-	                                      0x5F, 0x60, 0x61, 0x62, 0x63, 0x64, 0x65,
-	                                      0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C,
-	                                      0x6D, 0x6E, 0x6F, 0x70};*/
+	long int val = 0;
 
   /* USER CODE END 1 */
 
@@ -112,53 +151,39 @@ int main(void)
   MX_SPI1_Init();
 
   /* USER CODE BEGIN 2 */
+  initialise_monitor_handles();
+  __HAL_UART_FLUSH_DRREGISTER(&huart1);
+  HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
+  //char buff2[50] = "write 0x1234";
+  //char SPIbuff[20] = "chuchu\r";
+ // uint8_t spiBuff[5] ="123";
+ // char* result ;
 
+ //HAL_UART_Transmit_IT(&huart1, (uint8_t *)buff2, strlen( buff2));
+  //char buff[50] = {0};
 
-  char buff2[6] = "on";
+  //HAL_UART_Receive_IT(&huart1, (uint8_t *)buff, sizeof(buff));
+ //result = &buff[0];
+ //val = getNumber(&result);
 
-  HAL_UART_Transmit(&huart1, (uint8_t *)buff2, strlen( buff2 ), 0 );
-
-  char buff[ 50 ];
-
-  memset( buff, 0, 50 );
-
-  HAL_UART_Receive( &huart1, (uint8_t *)buff, 50, 0 );
-
-  if( strcmp( buff, "on" ) == 0 )
-
+  //if(val == 2)
+  //{ //write
+ // }
+  //HAL_SPI_Transmit(&hspi1, &spiBuff, 5, 0);
+ /* if( strcmp( buff, "on" ) == 0 )
   {
-	  HAL_GPIO_TogglePin(AMBER_LED_GPIO_Port,AMBER_LED_Pin); //Toggle LED
+	HAL_GPIO_TogglePin(AMBER_LED_GPIO_Port,AMBER_LED_Pin); //Toggle LED
+	HAL_Delay(1000); //Delay 1 Seconds
+}
 
-	  HAL_Delay(1000); //Delay 1 Seconds
-
-	  //HAL_GPIO_WritePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin, GPIO_PIN_SET);
-
-  }    else if( strcmp( buff, "off" ) == 0 )
-
-  {
-
-	  HAL_GPIO_WritePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin, GPIO_PIN_RESET);
-
-  }
+if( strcmp( buff, "off" ) == 0 )
+{
+  HAL_GPIO_WritePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin, GPIO_PIN_RESET);
+ }
   //__HAL_SPI_ENABLE(&hspi1);
+*/
 
-
-  //  without interrupt
-  //HAL_UART_Transmit(&huart1, &TxData, Size, Timeout);
-  // HAL_UART_Receive(&huart1, &receive, Size, Timeout);
-  //spi
- // HAL_SPI_Transmit(&hspi1, SPIz_Buffer_Tx, Size, Timeout);
-  //HAL_SPI_Receive(&hspi1, &receive, Size, Timeout);
-
-  /* Enable the interrupts for UART Receive flag*/
-//  __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
-  /* Enable the interrupts for UART Transmit complete*/
-//  __HAL_UART_ENABLE_IT(&huart1, UART_IT_TC);
-//	HAL_UART_Transmit_IT(&huart1, &TxData, Size);
-	//HAL_UART_Receive_IT(&huart1, &receive, Size);
-//	HAL_UART_IRQHandler(&huart1);
-
-  HAL_FLASH_Unlock();  //unlock the FLASH interface
+/*  HAL_FLASH_Unlock();  //unlock the FLASH interface
   //FLASH should be previously erased before new program
   // CLEAR all Flag
   CLEAR_BIT(FLASH->SR, FLASH_SR_BSY); //CLEAR BUSY FLAG
@@ -167,10 +192,10 @@ int main(void)
   CLEAR_BIT(FLASH->SR, FLASH_SR_WRPRTERR); //CLEAR Write protection error FLAG
   FLASH_PageErase(Address);
   HAL_FLASH_Program(type_Program, Address, Data);
-  HAL_FLASH_Lock();
+  HAL_FLASH_Lock();*/
 
   Data = 0; // read the data
-  Data = (*(uint32_t*)(Address));
+  //Data = (*(uint32_t*)(Address));
   //Interrupt callback routine
 //   HAL_UART_RxCpltCallback(&huart1);
 
@@ -246,9 +271,9 @@ static void MX_SPI1_Init(void)
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
-  hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;

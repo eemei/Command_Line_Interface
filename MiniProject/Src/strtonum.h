@@ -8,7 +8,7 @@
 #include <string.h>
 #include <ctype.h>
 
-int getNumber(char  **str);
+long int getNumber(char  **str);
 int strcmpInsensitive(char a[], char* b);
 int loop(char **str);
 #endif // _strtonum_H

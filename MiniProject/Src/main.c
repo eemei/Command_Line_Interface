@@ -68,51 +68,83 @@ static void MX_SPI1_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
+void executeCMD(UART_HandleTypeDef *huart);
 extern void initialise_monitor_handles(void);
+void caseFunction(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-#define MAXCLISTRING	3 // Biggest string the user will type
-uint8_t rxBuffer[MAXCLISTRING] = {0}; // where we store that one character that just came in
-uint8_t rxString[MAXCLISTRING]; // where we build our string from characters coming in
-int rxindex = 0; // index for going though rxString
+#define MAXCLISTRING	100 	// Biggest string the user will type
+uint8_t rxBuffer = 0; 			// where we store that one character that just came in
+char rxString[MAXCLISTRING]; 	// where we build our string from characters coming in
+int rxindex = 0; 				// index for going though rxString
+#define CR		13				//"\r"
+#define LF	 	10				//"\n"
+#define BS		8				//"\b"
+#define	del		127				//"del"
+char messageResponse[] = "hello";
+char *tempString;
+long int getValue;
+long int address;
+int dataByte;
 
-HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+void executeCMD(UART_HandleTypeDef *huart){
+	rxString[rxindex] = (char)rxBuffer;
+	rxindex++;
+	printf("rxindex = [ %d ]	rxBuffer= [ '%c' ]\n", rxindex, rxBuffer);
+	HAL_UART_Transmit_IT(&huart1, &rxBuffer, 1); // Echo the character that caused this callback so the user can see what they are typing
+	if (rxBuffer  == del || rxBuffer == BS){
+		printf("delete mode\n");
+		rxindex--;
+		if(rxindex < 0){
+			rxindex = 0;
+		}
+	}
+	if (rxBuffer == LF){	// If user enter, response the cmd
+		rxindex = 0;
+		tempString = &rxString[0];
+		printf("response\n");
+		//do{
+			getValue = getNumber(&tempString);
+			caseFunction();
+	//	}while(getValue != -2); // end of line
+		//HAL_UART_Transmit_IT(&huart1, (uint8_t *)messageResponse, 4);
+	}
+}
+
+void caseFunction(void){
+	int returnValue;
+	switch(getValue){
+	case 2://WRITE
+		returnValue = getNumber(&tempString);
+		if(returnValue != -2 || returnValue != -1 || returnValue != 2 ||returnValue != 3 || returnValue != 4){
+			address = getNumber(&tempString);
+			dataByte = loop(&tempString);
+		}
+		break;
+	case 3:	//READ
+		returnValue = getNumber(&tempString);
+		if(returnValue != -2 || returnValue != -1 || returnValue != 2 ||returnValue != 2 || returnValue != 4){
+			address = getNumber(&tempString);
+			returnValue = getNumber(&tempString);
+			if(returnValue != -2 || returnValue != -1 || returnValue != 2 ||returnValue != 2 || returnValue != 4){
+			dataByte = getNumber(&tempString);
+			}
+		}
+		break;
+	default: address = 0;
+
+
+
+	}
+}
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	char* result ;
-	result = &rxString[0];
+
     __HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
+    executeCMD(&huart1);
+    HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
 
-    int i = 0;
-
-    printf("%s\r\n",rxBuffer);  // Echo the character that caused this callback so the user can see what they are typing
-
-    if (rxBuffer == 8 || rxBuffer == 127) // If Backspace or del
-    {
-       printf(" \b"); // "\b space \b" clears the terminal character. Remember we just echoced a \b so don't need another one here, just space and \b
-        rxindex--;
-        if (rxindex < 0) rxindex = 0;
-    }
-
-    else if (rxBuffer == '\n' || rxBuffer == '\r') // If Enter
-    {
-    	getNumber(&result);
-        rxString[rxindex] = 0;
-        rxindex = 0;
-        for (i = 0; i < MAXCLISTRING; i++) rxString[i] = 0; // Clear the string buffer
-    }
-
-    else
-    {
-        rxString[rxindex] = rxBuffer[0]; // Add that character to the string
-        rxindex++;
-        if (rxindex > MAXCLISTRING) // User typing too much, we can't have commands that big
-        {
-            rxindex = 0;
-            for (i = 0; i < MAXCLISTRING; i++) rxString[i] = 0; // Clear the string buffer
-            printf("\r\nConsole> ");
-        }
-    }
 }
 /* USER CODE END 0 */
 
@@ -121,11 +153,6 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
-	uint32_t Address;//writing address
-	uint32_t type_Program = 1; // last page of starting address
-	uint64_t Data = 1;
-	Address = 0x08007C00 +4;
-	long int val = 0;
 
   /* USER CODE END 1 */
 
@@ -152,36 +179,9 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
   initialise_monitor_handles();
-  __HAL_UART_FLUSH_DRREGISTER(&huart1);
+  //HAL_UART_Transmit_IT(&huart1, (uint8_t *)messageResponse, 4);
   HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
-  //char buff2[50] = "write 0x1234";
-  //char SPIbuff[20] = "chuchu\r";
- // uint8_t spiBuff[5] ="123";
- // char* result ;
-
- //HAL_UART_Transmit_IT(&huart1, (uint8_t *)buff2, strlen( buff2));
-  //char buff[50] = {0};
-
-  //HAL_UART_Receive_IT(&huart1, (uint8_t *)buff, sizeof(buff));
- //result = &buff[0];
- //val = getNumber(&result);
-
-  //if(val == 2)
-  //{ //write
- // }
-  //HAL_SPI_Transmit(&hspi1, &spiBuff, 5, 0);
- /* if( strcmp( buff, "on" ) == 0 )
-  {
-	HAL_GPIO_TogglePin(AMBER_LED_GPIO_Port,AMBER_LED_Pin); //Toggle LED
-	HAL_Delay(1000); //Delay 1 Seconds
-}
-
-if( strcmp( buff, "off" ) == 0 )
-{
-  HAL_GPIO_WritePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin, GPIO_PIN_RESET);
- }
-  //__HAL_SPI_ENABLE(&hspi1);
-*/
+  //HAL_SPI_Transmit(&hspi1, 10, 1, 0);
 
 /*  HAL_FLASH_Unlock();  //unlock the FLASH interface
   //FLASH should be previously erased before new program
@@ -194,10 +194,8 @@ if( strcmp( buff, "off" ) == 0 )
   HAL_FLASH_Program(type_Program, Address, Data);
   HAL_FLASH_Lock();*/
 
-  Data = 0; // read the data
+  //Data = 0; // read the data
   //Data = (*(uint32_t*)(Address));
-  //Interrupt callback routine
-//   HAL_UART_RxCpltCallback(&huart1);
 
   /* USER CODE END 2 */
 

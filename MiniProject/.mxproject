@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/liewe/Desktop/Command_Line_Interface/MiniProject/Inc
+HeaderPath=C:/Users/liewe/Desktop/command/CML/Inc
 HeaderFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;
-SourcePath=C:/Users/liewe/Desktop/Command_Line_Interface/MiniProject/Src
+SourcePath=C:/Users/liewe/Desktop/command/CML/Src
 SourceFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;stm32f1xx_it.c;stm32f1xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

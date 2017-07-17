@@ -19,17 +19,27 @@ Using the C library routine strtol:
 /**
 * getNumber with char **str argumnent and return int 
 * - return -1 
-*   when invalid hex value or end of string 
-*     -> example 00x12, 10x12, 01x123  
+*   when invalid hex value, invalid string exclude "write" & "read", other symbol !@@#$%&*()_+=-`~
+*     -> example 00x12, 10x12, 01x123
+*
+* - return -2
+*   when end of line '\n'
 * 
 * - return 2
-*   when given char is write or read 
+*   when given char is write
 *   case insensitive
+*
+** - return 3
+*   when given char is read
+*   case insensitive
+*
+* - return 4
+*   when given space or tab
 *
 * - return val
 *   valid decimal value or hex value
 */
-int getNumber(char  **str)
+long int getNumber(char  **str)
 {
   errno = 0;
   char *endptr;  //end pointer  
@@ -42,9 +52,49 @@ int getNumber(char  **str)
   char *bRead = "read"; 
   ptr = *str;
   char data[10];
-  char *receivestr;
+  //char *receivestr;
   if(*ptr != '\0')
   {
+	    if(isalpha((char)*ptr)){
+	      sscanf(ptr, "%s", data);
+	      if (strcmpInsensitive(data, aWrite) == 0){
+	        while(*ptr != '\0')
+	        {
+	          if(*ptr == ' ')
+	          {
+	            *str = ptr;
+	            return 2;
+	          }
+	          if(*ptr == '\t')
+	          {
+	            *str = ptr;
+	            return 2;
+	          }
+	          ptr++;
+	        }
+	        *str = ptr;
+	        return 2;
+	      }
+	      else if (strcmpInsensitive(data, bRead) == 0){
+	        while(*ptr != '\0')
+	        {
+	          if(*ptr == ' ')
+	          {
+	            *str = ptr;
+	            return 3;
+	          }
+	          if(*ptr == '\t')
+	          {
+	            *str = ptr;
+	            return 3;
+	          }
+	          ptr++;
+	        }
+	        *str = ptr;
+	        return 3;
+	      }
+	      return -1;
+	    }
     if (isdigit((unsigned char)*ptr))
     {
       val = strtol(*str, &endptr, baseDecimal);
@@ -54,11 +104,11 @@ int getNumber(char  **str)
         (detectHex++);
         if(*detectHex == 'x' || *detectHex == 'X'){
           val = strtol(*str, &endptr, baseHex);
-          if((val == LONG_MAX || val == LONG_MIN) && errno == ERANGE)
-          {
-            *str = endptr;
-            return -1;
-          }
+          //if((val == LONG_MAX || val == LONG_MIN) && errno == ERANGE)
+          //{
+            //*str = endptr;
+            //return -1;
+          //}
           *str = endptr;
           return val;
         }
@@ -110,55 +160,16 @@ int getNumber(char  **str)
       *str = endptr;
       return val;
     }
-    if(isalpha((char)*ptr)){
-      sscanf(ptr, "%s", data);
-      if (strcmpInsensitive(data, aWrite) == 0){
-        while(*ptr != '\0')
-        {
-          if(*ptr == ' ')
-          {
-            *str = ptr;
-            return 2;
-          }
-          if(*ptr == '\t')
-          {
-            *str = ptr;
-            return 2;
-          }
-          ptr++;
-        }
-        *str = ptr;
-        return 2;
-      }
-      else if (strcmpInsensitive(data, bRead) == 0){
-        while(*ptr != '\0')
-        {
-          if(*ptr == ' ')
-          {
-            *str = ptr;
-            return 3;
-          }
-          if(*ptr == '\t')
-          {
-            *str = ptr;
-            return 3;
-          }
-          ptr++;
-        }
-        *str = ptr;
-        return 3;
-      }
-      return -1;
+    if(*ptr != ' ' || *ptr != '\t'){
+    	ptr++;
+    	*str = ptr;
+    	return 4;
     }
-    else
-    {
-      ptr++;
-      *str = ptr;
-      getNumber (str); 
-    }
+   else
+	   return -1;
   }
-  else 
-    return -1;
+
+  return -2;
 }
 
 /**
@@ -184,18 +195,16 @@ int loop(char **str){
   char *ptr;
   ptr = *str;
   int i=0;
-  int val = 0;
+  int long val = 0;
   while(*ptr !='\0')
   {
     val = getNumber(str);
     ptr = *str;
-    if(val != -1)
+    if(val != -1 || val !=-2 || val != 2 || val != 3 ||val != 4)
     {
-      if(val != 2)
-      {
         i+=1;
-      }   
-    }
+        printf("i = %d\n", i);
+     }
   }
   return i;
 }

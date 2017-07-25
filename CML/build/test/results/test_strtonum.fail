@@ -1,0 +1,64 @@
+---
+:source:
+  :path: test
+  :file: test_strtonum.c
+:successes:
+- :test: test_strtonum_given_1234_abcd_and_expect_1234_basedTen
+  :line: 11
+  :message: ''
+- :test: test_strtonum_given_8765_abcd_expect_8756
+  :line: 20
+  :message: ''
+- :test: test_strtonum_given_with__4567_abcd_expect_4567
+  :line: 29
+  :message: ''
+- :test: test_strtonum_given_0x34567_abc_expect_0
+  :line: 37
+  :message: ''
+- :test: test_strtonum_given_0x123456_abc_expect_whitespace
+  :line: 47
+  :message: ''
+- :test: test_strtonum_given_write_0x123123_abc_expect_w
+  :line: 56
+  :message: ''
+- :test: test_strtonum_given_0x123123_abc_expect_whitespace
+  :line: 65
+  :message: ''
+- :test: test_strtonum_given_write_0x123123_abc_expect_whitespace
+  :line: 75
+  :message: ''
+- :test: test_strtonum_given__0x124556__0x1234_123_expect_whitespace
+  :line: 84
+  :message: ''
+- :test: test_string_compare_insensitive_given_wRite_and_write
+  :line: 93
+  :message: ''
+- :test: test_string_compare_insensitive_given_write_and_write
+  :line: 100
+  :message: ''
+- :test: test_sscanf_given_write_read
+  :line: 279
+  :message: ''
+- :test: test_sscanf_given__test
+  :line: 289
+  :message: ''
+- :test: test_sscanf_given__the_write
+  :line: 299
+  :message: ''
+:failures:
+- :test: test_string_compare_insensitive_given_write_and_writee
+  :line: 104
+  :message: Expected -1 Was 1
+:ignores: []
+:counts:
+  :total: 15
+  :passed: 14
+  :failed: 1
+  :ignored: 0
+:stdout:
+- write
+- ''
+- test
+- ''
+- write
+- ''

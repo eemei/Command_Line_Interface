@@ -81,11 +81,11 @@ int rxindex = 0; 				// index for going though rxString
 #define LF	 	10				//"\n"
 #define BS		8				//"\b"
 #define	del		127				//"del"
-char *messageResponse = "hello\n";
+char messageResponse[] = "hello\n";
 char *tempString;
 long int getValue;
 char *getChar;
-uint32_t *address;
+uint8_t *address;
 int dataByte;
 uint8_t* base_addr = (uint8_t *)SRAM_BASE;
 
@@ -121,30 +121,28 @@ void executeCMD(UART_HandleTypeDef *huart){
 		getChar = getSubString(&tempString);
 		cmp = strcmp(getChar, help);   //help
 		if(cmp == 0){
-			HAL_UART_Transmit_IT(&huart1, (uint8_t *)messageResponse, 6);
+			HAL_UART_Transmit_IT(&huart1, (uint8_t *)&messageResponse, 6);
 			printf("help\n");
 		}
 		cmp = strcmp(getChar, write);  //write
 		if(cmp == 0){
-			address = (uint32_t *)getNumber(&tempString);
+			address = (uint8_t *)getNumber(&tempString);
 			while(*tempString != '\n'){
 			  //	*(__IO uint8_t *)0x20000000 = 0xa;
-		    *(__IO uint32_t *)address= getNumber(&tempString);
+		    *(__IO uint8_t *)address= getNumber(&tempString);
 		    address++;
 			}
 		}
 		cmp = strcmp(getChar, read);
 		if(cmp == 0){
-//			HAL_GPIO_TogglePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin);
-//			HAL_Delay(400);
-			address = (uint32_t *)getNumber(&tempString);
-			HAL_UART_Transmit(&huart1, (uint8_t *)address, sizeof(address),0);
+			address = (uint8_t *)getNumber(&tempString);
+			HAL_UART_Transmit(&huart1, address, sizeof(address),0);
 			HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),0);
 			dataByte = getNumber(&tempString);
 			while(dataByte != 1){
 				dataByte--;
 				address++;
-				HAL_UART_Transmit(&huart1, (uint8_t *)address, sizeof(address),0);
+				HAL_UART_Transmit(&huart1, address, sizeof(address),0);
 				HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),0);
 			}
 		}

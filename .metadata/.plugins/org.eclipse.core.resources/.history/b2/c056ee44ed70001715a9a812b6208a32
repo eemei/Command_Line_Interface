@@ -138,13 +138,13 @@ void executeCMD(UART_HandleTypeDef *huart){
 //			HAL_GPIO_TogglePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin);
 //			HAL_Delay(400);
 			address = (uint32_t *)getNumber(&tempString);
-			HAL_UART_Transmit(&huart1, (uint8_t *)address, sizeof(address),0);
+			HAL_UART_Transmit(&huart1, (uint8_t)address, sizeof(address),0);
 			HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),0);
 			dataByte = getNumber(&tempString);
 			while(dataByte != 1){
 				dataByte--;
 				address++;
-				HAL_UART_Transmit(&huart1, (uint8_t *)address, sizeof(address),0);
+				HAL_UART_Transmit(&huart1, (uint8_t)address, sizeof(address),0);
 				HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),0);
 			}
 		}

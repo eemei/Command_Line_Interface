@@ -195,12 +195,12 @@ char *getSubString(char **strPtr){
       ptr+=length;
       *strPtr = ptr;
       length++;
-      printf("['%s']\n", str);
+      //printf("['%s']\n", str);
       // copy all character bytes to the new buffer using tolower
       for(i = 0; i < length; i++ )
       {
           lower[i] = tolower(str[i]);
-          printf("['%c']\n", lower[i]);
+          printf("getstring ['%c']\n", lower[i]);
       }
       lower[length] = 0;
       return lower;

@@ -90,24 +90,13 @@ void test_strtonum_given__0x124556__0x1234_123_expect_whitespace(void)
   TEST_ASSERT_EQUAL(' ',*ptr);
 }
 
-void test_string_compare_insensitive_given_wRite_and_write(void){
-  char *a = "wRite";
-  char *b = "write";
-  int cmp = strcmpInsensitive(a, b);
-  TEST_ASSERT_EQUAL(0, cmp);
-}
-
-void test_string_compare_insensitive_given_write_and_writee(void){
-  char *a = "writee";
-  char *b = "write";
-  int cmp = strcmpInsensitive(a, b);
-  TEST_ASSERT_EQUAL(1, cmp);
-}
-void test_string_compare_insensitive_given_write_and_write(void){
-  char *a = "write";
-  char *b = "write";
-  int cmp = strcmpInsensitive(a, b);
-  TEST_ASSERT_EQUAL(0, cmp);
+void test_strtonum_given__0xaaaaaaaa_expect_0xaaaaaaaa(void)
+{
+  unsigned long val;
+  char *ptr; 
+  char value2Parse[] ="0xaaaaaaaa";
+  val = strtoul(value2Parse, &ptr, 16);
+  TEST_ASSERT_EQUAL(0xaaaaaaaa,val);
 }
 
 /*

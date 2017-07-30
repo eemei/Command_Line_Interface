@@ -1,0 +1,16 @@
+---
+:source:
+  :path: test/support
+  :file: test_CustomAssertion.c
+:successes: []
+:failures: []
+:ignores:
+- :test: test_customassertion_NeedToImplement
+  :line: 10
+  :message: Need to Implement customassertion
+:counts:
+  :total: 1
+  :passed: 0
+  :failed: 0
+  :ignored: 1
+:stdout: []

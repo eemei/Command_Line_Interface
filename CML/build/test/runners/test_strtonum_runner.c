@@ -8,8 +8,11 @@
   Unity.NumberOfTests++; \
   if (TEST_PROTECT()) \
   { \
+    CEXCEPTION_T e; \
+    Try { \
       setUp(); \
       TestFunc(); \
+    } Catch(e) { TEST_ASSERT_EQUAL_HEX32_MESSAGE(CEXCEPTION_NONE, e, "Unhandled Exception!"); } \
   } \
   if (TEST_PROTECT()) \
   { \
@@ -22,6 +25,7 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "CException.h"
 
 int GlobalExpectCount;
 int GlobalVerifyOrder;
@@ -39,9 +43,7 @@ extern void test_strtonum_given_write_0x123123_abc_expect_w(void);
 extern void test_strtonum_given_0x123123_abc_expect_whitespace(void);
 extern void test_strtonum_given_write_0x123123_abc_expect_whitespace(void);
 extern void test_strtonum_given__0x124556__0x1234_123_expect_whitespace(void);
-extern void test_string_compare_insensitive_given_wRite_and_write(void);
-extern void test_string_compare_insensitive_given_write_and_writee(void);
-extern void test_string_compare_insensitive_given_write_and_write(void);
+extern void test_strtonum_given__0xaaaaaaaa_expect_0xaaaaaaaa(void);
 extern void test_sscanf_given_write_read(void);
 extern void test_sscanf_given__test(void);
 extern void test_sscanf_given__the_write(void);
@@ -69,12 +71,10 @@ int main(void)
   RUN_TEST(test_strtonum_given_0x123123_abc_expect_whitespace, 65);
   RUN_TEST(test_strtonum_given_write_0x123123_abc_expect_whitespace, 75);
   RUN_TEST(test_strtonum_given__0x124556__0x1234_123_expect_whitespace, 84);
-  RUN_TEST(test_string_compare_insensitive_given_wRite_and_write, 93);
-  RUN_TEST(test_string_compare_insensitive_given_write_and_writee, 100);
-  RUN_TEST(test_string_compare_insensitive_given_write_and_write, 100);
-  RUN_TEST(test_sscanf_given_write_read, 279);
-  RUN_TEST(test_sscanf_given__test, 289);
-  RUN_TEST(test_sscanf_given__the_write, 299);
+  RUN_TEST(test_strtonum_given__0xaaaaaaaa_expect_0xaaaaaaaa, 93);
+  RUN_TEST(test_sscanf_given_write_read, 268);
+  RUN_TEST(test_sscanf_given__test, 278);
+  RUN_TEST(test_sscanf_given__the_write, 288);
 
   return (UnityEnd());
 }

@@ -1,8 +1,4 @@
-10:12:48 **** Clean-only build of configuration Debug for project CML ****
-make clean 
-rm -rf *
- 
-10:12:57 **** Build of configuration Debug for project CML ****
+12:05:37 **** Build of configuration Debug for project CML ****
 make all 
 Building file: ../startup/startup_stm32f103xb.s
 Invoking: MCU GCC Assembler
@@ -10,12 +6,34 @@ C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-as -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -g -o "startup/startup_stm32f103xb.o" "../startup/startup_stm32f103xb.s"
 Finished building: ../startup/startup_stm32f103xb.s
  
+Building file: ../Src/ErrorObject.c
+Invoking: MCU GCC Compiler
+C:\Users\liewe\Desktop\command\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/ErrorObject.d" -MT"Src/ErrorObject.o" -o "Src/ErrorObject.o" "../Src/ErrorObject.c"
+../Src/ErrorObject.c: In function 'throwError':
+../Src/ErrorObject.c:9:3: warning: implicit declaration of function 'Throw' [-Wimplicit-function-declaration]
+   Throw(errObj);
+   ^
+Finished building: ../Src/ErrorObject.c
+ 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
+  __IO uint8_t *addressb;
+                ^
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
+  __IO uint16_t *addressh;
+                 ^
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
+  char *writeh = "writeh";
+        ^
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
+  char *writeb = "writeb";
+        ^
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -144,719 +162,40 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  20968	    508	   2044	  23520	   5be0	CML.elf
+  21120	    628	   2044	  23792	   5cf0	CML.elf
  
-10:13:37 **** Incremental Build of configuration Debug for project CML ****
+12:07:44 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-10:48:03 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Command canceled
-10:48:54 **** Build of configuration Debug for project CML ****
+13:40:31 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-10:49:01 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:139:4: warning: implicit declaration of function 'delay' [-Wimplicit-function-declaration]
-    delay(500);
-    ^
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Src/main.o: In function `executeCMD':
-C:\Users\liewe\Desktop\command\CML\Debug/../Src/main.c:139: undefined reference to `delay'
-collect2.exe: error: ld returned 1 exit status
-make: *** [CML.elf] Error 1
-10:51:00 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  21028	    508	   2044	  23580	   5c1c	CML.elf
- 
-10:51:06 **** Incremental Build of configuration Debug for project CML ****
+13:58:30 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-10:51:32 **** Incremental Build of configuration Debug for project CML ****
+13:59:31 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-10:51:35 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-11:03:45 **** Incremental Build of configuration Debug for project CML ****
+14:00:02 **** Incremental Build of configuration Debug for project CML ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20968	    508	   2044	  23520	   5be0	CML.elf
- 
-11:03:52 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-11:04:15 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-11:29:03 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-11:40:22 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-11:55:33 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:140:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-    address = (uint8_t *)getNumber(&tempString);
-            ^
-../Src/main.c:141:31: warning: passing argument 2 of 'HAL_UART_Transmit' from incompatible pointer type [-Wincompatible-pointer-types]
-    HAL_UART_Transmit(&huart1, address, sizeof(address),0);
-                               ^
-In file included from C:/Users/liewe/Desktop/command/CML/Inc/stm32f1xx_hal_conf.h:301:0,
-                 from C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:48,
-                 from ../Src/main.c:40:
-C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:686:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'uint32_t * {aka long unsigned int *}'
- HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-                   ^
-../Src/main.c:147:32: warning: passing argument 2 of 'HAL_UART_Transmit' from incompatible pointer type [-Wincompatible-pointer-types]
-     HAL_UART_Transmit(&huart1, address, sizeof(address),0);
-                                ^
-In file included from C:/Users/liewe/Desktop/command/CML/Inc/stm32f1xx_hal_conf.h:301:0,
-                 from C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:48,
-                 from ../Src/main.c:40:
-C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:686:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'uint32_t * {aka long unsigned int *}'
- HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-                   ^
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20968	    508	   2044	  23520	   5be0	CML.elf
- 
-11:56:22 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:141:31: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-    HAL_UART_Transmit(&huart1, (uint8_t)address, sizeof(address),0);
-                               ^
-../Src/main.c:141:31: warning: passing argument 2 of 'HAL_UART_Transmit' makes pointer from integer without a cast [-Wint-conversion]
-In file included from C:/Users/liewe/Desktop/command/CML/Inc/stm32f1xx_hal_conf.h:301:0,
-                 from C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:48,
-                 from ../Src/main.c:40:
-C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:686:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'unsigned char'
- HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-                   ^
-../Src/main.c:147:32: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-     HAL_UART_Transmit(&huart1, (uint8_t)address, sizeof(address),0);
-                                ^
-../Src/main.c:147:32: warning: passing argument 2 of 'HAL_UART_Transmit' makes pointer from integer without a cast [-Wint-conversion]
-In file included from C:/Users/liewe/Desktop/command/CML/Inc/stm32f1xx_hal_conf.h:301:0,
-                 from C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:48,
-                 from ../Src/main.c:40:
-C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:686:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'unsigned char'
- HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-                   ^
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20976	    508	   2044	  23528	   5be8	CML.elf
- 
-11:56:45 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20968	    508	   2044	  23520	   5be0	CML.elf
- 
-11:56:50 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-13:23:10 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-13:53:52 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20944	    508	   2036	  23488	   5bc0	CML.elf
- 
-13:54:31 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-13:54:53 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-14:05:13 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  21004	    508	   2036	  23548	   5bfc	CML.elf
- 
-14:05:32 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-14:12:21 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20944	    508	   2036	  23488	   5bc0	CML.elf
- 
-14:19:30 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20944	    508	   2036	  23488	   5bc0	CML.elf
- 
-14:19:40 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-14:19:49 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-14:29:09 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20960	    508	   2036	  23504	   5bd0	CML.elf
- 
-14:32:20 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:99:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20960	    508	   2036	  23504	   5bd0	CML.elf
- 
-14:35:38 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:137:17: error: called object is not a function or function pointer
-       address++;0
-                 ^
-../Src/main.c:140:4: error: expected ';' before '}' token
-    }
-    ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-14:35:49 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:137:17: error: called object is not a function or function pointer
-       address++;0
-                 ^
-../Src/main.c:140:4: error: expected ';' before '}' token
-    }
-    ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-14:36:40 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:137:17: error: called object is not a function or function pointer
-       address++;0
-                 ^
-../Src/main.c:140:4: error: expected ';' before '}' token
-    }
-    ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-14:36:56 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:137:17: error: called object is not a function or function pointer
-       address++;0
-                 ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-14:37:10 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20992	    508	   2044	  23544	   5bf8	CML.elf
- 
-14:44:29 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20944	    508	   2044	  23496	   5bc8	CML.elf
- 
-15:12:16 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:144:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-    address = (uint16_t *)getNumber(&tempString);
-            ^
-../Src/main.c:148:26: error: lvalue required as left operand of assignment
-       ((uint8_t *)address+=0xffff)++;
-                          ^
-../Src/main.c:155:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-    address = (uint8_t *)getNumber(&tempString);
-            ^
-../Src/main.c:159:26: error: lvalue required as left operand of assignment
-       ((uint8_t *)address+=0xf)++;
-                          ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-15:15:02 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:150:27: error: lvalue required as left operand of assignment
-       ((uint8_t *)addressh+=0xffff)++;
-                           ^
-../Src/main.c:161:27: error: lvalue required as left operand of assignment
-       ((uint8_t *)addressb+=0xf)++;
-                           ^
-../Src/main.c:168:4: error: 'address' undeclared (first use in this function)
-    address = (uint32_t *)getNumber(&tempString);
-    ^
-../Src/main.c:168:4: note: each undeclared identifier is reported only once for each function it appears in
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-15:19:54 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:150:28: error: lvalue required as left operand of assignment
-       ((uint32_t *)addressh+=0xffff)++;
-                            ^
-../Src/main.c:161:28: error: lvalue required as left operand of assignment
-       ((uint32_t *)addressb+=0xf)++;
-                            ^
-../Src/main.c:168:4: error: 'address' undeclared (first use in this function)
-    address = (uint32_t *)getNumber(&tempString);
-    ^
-../Src/main.c:168:4: note: each undeclared identifier is reported only once for each function it appears in
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-15:20:01 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:150:28: error: lvalue required as left operand of assignment
-       ((uint32_t *)addressh+=0xffff)++;
-                            ^
-../Src/main.c:161:28: error: lvalue required as left operand of assignment
-       ((uint32_t *)addressb+=0xf)++;
-                            ^
-../Src/main.c:168:4: error: 'address' undeclared (first use in this function)
-    address = (uint32_t *)getNumber(&tempString);
-    ^
-../Src/main.c:168:4: note: each undeclared identifier is reported only once for each function it appears in
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-15:46:20 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:150:38: error: lvalue required as increment operand
-       ((uint32_t *)(addressh+0xffff))++;
-                                      ^
-../Src/main.c:161:36: error: lvalue required as increment operand
-       ((uint32_t *)(addressb+0xff))++;
-                                    ^
-../Src/main.c:168:4: error: 'address' undeclared (first use in this function)
-    address = (uint32_t *)getNumber(&tempString);
-    ^
-../Src/main.c:168:4: note: each undeclared identifier is reported only once for each function it appears in
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-15:47:05 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:150:36: error: lvalue required as increment operand
-       (uint32_t *)(addressh+0xffff)++;
-                                    ^
-../Src/main.c:161:34: error: lvalue required as increment operand
-       (uint32_t *)(addressb+0xff)++;
-                                  ^
-../Src/main.c:168:4: error: 'address' undeclared (first use in this function)
-    address = (uint32_t *)getNumber(&tempString);
-    ^
-../Src/main.c:168:4: note: each undeclared identifier is reported only once for each function it appears in
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-15:55:13 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:150:36: error: lvalue required as increment operand
-       (uint16_t *)(addressh+0xffff)++;
-                                    ^
-../Src/main.c:161:33: error: lvalue required as increment operand
-       (uint8_t *)(addressb+0xff)++;
-                                 ^
-../Src/main.c:168:4: error: 'address' undeclared (first use in this function)
-    address = (uint32_t *)getNumber(&tempString);
-    ^
-../Src/main.c:168:4: note: each undeclared identifier is reported only once for each function it appears in
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-15:55:40 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:150:36: error: lvalue required as increment operand
-       (uint16_t *)(addressh+0xffff)++;
-                                    ^
-../Src/main.c:161:33: error: lvalue required as increment operand
-       (uint8_t *)(addressb+0xff)++;
-                                 ^
-../Src/main.c:168:4: error: 'address' undeclared (first use in this function)
-    address = (uint32_t *)getNumber(&tempString);
-    ^
-../Src/main.c:168:4: note: each undeclared identifier is reported only once for each function it appears in
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-16:05:01 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:174:42: error: 'address' undeclared (first use in this function)
-    HAL_UART_Transmit(&huart1, (uint8_t *)address, sizeof(addressw),0);
-                                          ^
-../Src/main.c:174:42: note: each undeclared identifier is reported only once for each function it appears in
-../Src/main.c:179:5: error: 'addresws' undeclared (first use in this function)
-     addresws++;
-     ^
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
   __IO uint8_t *addressb;
                 ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
   __IO uint16_t *addressh;
                  ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
   char *writeh = "writeh";
         ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
   char *writeb = "writeb";
         ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-make: *** [Src/main.o] Error 1
-16:05:28 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -871,31 +210,31 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21028	    508	   2044	  23580	   5c1c	CML.elf
+  21112	    628	   2044	  23784	   5ce8	CML.elf
  
-16:05:39 **** Incremental Build of configuration Debug for project CML ****
+14:16:18 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-16:10:04 **** Incremental Build of configuration Debug for project CML ****
+14:16:22 **** Incremental Build of configuration Debug for project CML ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
   __IO uint8_t *addressb;
                 ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
   __IO uint16_t *addressh;
                  ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
   char *writeh = "writeh";
         ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
   char *writeb = "writeb";
         ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -910,31 +249,31 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21072	    508	   2044	  23624	   5c48	CML.elf
+  21040	    628	   2044	  23712	   5ca0	CML.elf
  
-16:10:13 **** Incremental Build of configuration Debug for project CML ****
+14:17:13 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-16:12:41 **** Incremental Build of configuration Debug for project CML ****
+14:35:14 **** Incremental Build of configuration Debug for project CML ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
   __IO uint8_t *addressb;
                 ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
   __IO uint16_t *addressh;
                  ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
   char *writeh = "writeh";
         ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
   char *writeb = "writeb";
         ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -949,31 +288,31 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21056	    508	   2044	  23608	   5c38	CML.elf
+  21112	    628	   2044	  23784	   5ce8	CML.elf
  
-16:12:45 **** Incremental Build of configuration Debug for project CML ****
+14:35:17 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-17:21:14 **** Incremental Build of configuration Debug for project CML ****
+14:41:36 **** Incremental Build of configuration Debug for project CML ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
   __IO uint8_t *addressb;
                 ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
   __IO uint16_t *addressh;
                  ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
   char *writeh = "writeh";
         ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
   char *writeb = "writeb";
         ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -988,31 +327,31 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21056	    508	   2044	  23608	   5c38	CML.elf
+  21068	    628	   2044	  23740	   5cbc	CML.elf
  
-17:23:46 **** Incremental Build of configuration Debug for project CML ****
+14:42:34 **** Incremental Build of configuration Debug for project CML ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:110:10: warning: unused variable 'backspace' [-Wunused-variable]
-  uint8_t backspace[] ={'\b'};
-          ^
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
+../Src/main.c:124:18: warning: unused variable 'hal_busy_counter' [-Wunused-variable]
+  static uint32_t hal_busy_counter = 0;
+                  ^
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
   __IO uint8_t *addressb;
                 ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
   __IO uint16_t *addressh;
                  ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
   char *writeh = "writeh";
         ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
   char *writeb = "writeb";
         ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -1027,38 +366,31 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21044	    508	   2044	  23596	   5c2c	CML.elf
+  21032	    628	   2044	  23704	   5c98	CML.elf
  
-17:24:16 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-18:15:27 **** Incremental Build of configuration Debug for project CML ****
+14:48:02 **** Incremental Build of configuration Debug for project CML ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:111:20: warning: multi-character character constant [-Wmultichar]
-  uint8_t space[] ={' \b'};
-                    ^
-../Src/main.c:111:20: warning: large integer implicitly truncated to unsigned type [-Woverflow]
-../Src/main.c:110:10: warning: unused variable 'backspace' [-Wunused-variable]
-  uint8_t backspace[] ={'\b'};
-          ^
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
+../Src/main.c:124:18: warning: unused variable 'hal_busy_counter' [-Wunused-variable]
+  static uint32_t hal_busy_counter = 0;
+                  ^
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
   __IO uint8_t *addressb;
                 ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
   __IO uint16_t *addressh;
                  ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
   char *writeh = "writeh";
         ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
   char *writeb = "writeb";
         ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -1073,34 +405,40 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21044	    508	   2044	  23596	   5c2c	CML.elf
+  21032	    628	   2044	  23704	   5c98	CML.elf
  
-18:27:54 **** Incremental Build of configuration Debug for project CML ****
+14:48:06 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-18:28:01 **** Incremental Build of configuration Debug for project CML ****
+15:08:44 **** Incremental Build of configuration Debug for project CML ****
+make all 
+make: Nothing to be done for `all'.
+15:08:54 **** Incremental Build of configuration Debug for project CML ****
+make all 
+make: Nothing to be done for `all'.
+15:22:29 **** Incremental Build of configuration Debug for project CML ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:110:10: warning: unused variable 'backspace' [-Wunused-variable]
-  uint8_t backspace[] ={'\b'};
-          ^
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
+../Src/main.c:124:18: warning: unused variable 'hal_busy_counter' [-Wunused-variable]
+  static uint32_t hal_busy_counter = 0;
+                  ^
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
   __IO uint8_t *addressb;
                 ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
   __IO uint16_t *addressh;
                  ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
   char *writeh = "writeh";
         ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
   char *writeb = "writeb";
         ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -1115,172 +453,46 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21056	    508	   2044	  23608	   5c38	CML.elf
+  21048	    696	   2048	  23792	   5cf0	CML.elf
  
-18:28:10 **** Incremental Build of configuration Debug for project CML ****
+15:22:35 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-18:30:07 **** Incremental Build of configuration Debug for project CML ****
+15:26:35 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-19:29:52 **** Incremental Build of configuration Debug for project CML ****
+15:26:37 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-15:29:49 **** Incremental Build of configuration Debug for project CML ****
+15:34:23 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-15:30:13 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-15:34:11 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-15:45:04 **** Incremental Build of configuration Debug for project CML ****
+15:36:15 **** Incremental Build of configuration Debug for project CML ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
 ../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
+../Src/main.c:124:18: warning: unused variable 'hal_busy_counter' [-Wunused-variable]
+  static uint32_t hal_busy_counter = 0;
+                  ^
+../Src/main.c:122:6: warning: unused variable 'cmp' [-Wunused-variable]
+  int cmp;
       ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  21056	    508	   2044	  23608	   5c38	CML.elf
- 
-15:56:27 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
+../Src/main.c:117:16: warning: unused variable 'addressb' [-Wunused-variable]
   __IO uint8_t *addressb;
                 ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
+../Src/main.c:116:17: warning: unused variable 'addressh' [-Wunused-variable]
   __IO uint16_t *addressh;
                  ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
+../Src/main.c:111:8: warning: unused variable 'writeh' [-Wunused-variable]
   char *writeh = "writeh";
         ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
+../Src/main.c:110:8: warning: unused variable 'writeb' [-Wunused-variable]
   char *writeb = "writeb";
         ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  21004	    508	   2044	  23556	   5c04	CML.elf
- 
-15:56:49 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-16:12:44 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-16:12:49 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-16:29:05 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  20992	    508	   2044	  23544	   5bf8	CML.elf
- 
-16:29:44 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-16:41:47 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-18:09:11 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:110:10: warning: unused variable 'backspace' [-Wunused-variable]
-  uint8_t backspace[] ={'\b'};
-          ^
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
+../Src/main.c:109:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
 Finished building: ../Src/main.c
@@ -1301,34 +513,28 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  20984	    508	   2044	  23536	   5bf0	CML.elf
+  21056	    696	   2048	  23800	   5cf8	CML.elf
  
-18:09:44 **** Incremental Build of configuration Debug for project CML ****
+15:36:23 **** Incremental Build of configuration Debug for project CML ****
 make all 
 make: Nothing to be done for `all'.
-18:12:19 **** Incremental Build of configuration Debug for project CML ****
+15:43:45 **** Incremental Build of configuration Debug for project CML ****
 make all 
-Building file: ../Src/main.c
+Building file: ../Src/strtonum.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/strtonum.d" -MT"Src/strtonum.o" -o "Src/strtonum.o" "../Src/strtonum.c"
+../Src/strtonum.c: In function 'getNumber':
+../Src/strtonum.c:68:21: warning: return makes integer from pointer without a cast [-Wint-conversion]
+              return (char *)getSubString(&ptr);
+                     ^
+../Src/strtonum.c:73:22: warning: return makes integer from pointer without a cast [-Wint-conversion]
+              return  (char *)getSubString(&ptr);
+                      ^
+../Src/strtonum.c:78:18: warning: return makes integer from pointer without a cast [-Wint-conversion]
+          return  (char *)getSubString(&ptr);
+                  ^
+Finished building: ../Src/strtonum.c
  
 Building target: CML.elf
 Invoking: MCU GCC Linker
@@ -1340,31 +546,25 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21000	    508	   2044	  23552	   5c00	CML.elf
+  21072	    696	   2048	  23816	   5d08	CML.elf
  
-18:21:25 **** Incremental Build of configuration Debug for project CML ****
+18:01:21 **** Incremental Build of configuration Debug for project CML ****
 make all 
-Building file: ../Src/main.c
+Building file: ../Src/strtonum.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/strtonum.d" -MT"Src/strtonum.o" -o "Src/strtonum.o" "../Src/strtonum.c"
+../Src/strtonum.c: In function 'getNumber':
+../Src/strtonum.c:68:21: warning: return makes integer from pointer without a cast [-Wint-conversion]
+              return ((char *)getSubString(&ptr));
+                     ^
+../Src/strtonum.c:73:22: warning: return makes integer from pointer without a cast [-Wint-conversion]
+              return  ((char *)getSubString(&ptr));
+                      ^
+../Src/strtonum.c:78:18: warning: return makes integer from pointer without a cast [-Wint-conversion]
+          return  (char *)getSubString(&ptr);
+                  ^
+Finished building: ../Src/strtonum.c
  
 Building target: CML.elf
 Invoking: MCU GCC Linker
@@ -1376,37 +576,15 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21000	    508	   2044	  23552	   5c00	CML.elf
+  21072	    696	   2048	  23816	   5d08	CML.elf
  
-18:23:47 **** Incremental Build of configuration Debug for project CML ****
+18:03:12 **** Incremental Build of configuration Debug for project CML ****
 make all 
-make: Nothing to be done for `all'.
-18:23:52 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-18:34:25 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
+Building file: ../Src/strtonum.c
 Invoking: MCU GCC Compiler
 C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/strtonum.d" -MT"Src/strtonum.o" -o "Src/strtonum.o" "../Src/strtonum.c"
+Finished building: ../Src/strtonum.c
  
 Building target: CML.elf
 Invoking: MCU GCC Linker
@@ -1418,44 +596,5 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
 arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
-  21000	    508	   2044	  23552	   5c00	CML.elf
- 
-18:34:30 **** Incremental Build of configuration Debug for project CML ****
-make all 
-make: Nothing to be done for `all'.
-18:36:19 **** Incremental Build of configuration Debug for project CML ****
-make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:108:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:107:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:102:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:101:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:100:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  21000	    508	   2044	  23552	   5c00	CML.elf
+  21048	    696	   2048	  23792	   5cf0	CML.elf
  

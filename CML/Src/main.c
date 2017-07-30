@@ -81,7 +81,11 @@ int rxindex = 0; 				// index for going though rxString
 #define LF	 	10				//"\n"
 #define BS		8				//"\b"
 #define	del		127				//"del"
+
 char *messageResponse = "hello\n";
+uint8_t messageCommand[] = {"this command does not exit, please type 'help' to see the command list.\n"};
+uint8_t messageError[] = {"is not a digit\n"};
+uint8_t messageAddress[] = {"is an invalid register address. The example of command read should be as: read 0x2XXXXXXX 8\n"};
 char *tempString;
 long int getValue;
 char *getChar;
@@ -97,6 +101,11 @@ char *helpMessg[] = {"This shell commands are defined internally. Type 'help' to
 					"read <address> <number of byte>				read the data from provide register address\n" };
 
 void executeCMD(UART_HandleTypeDef *huart){
+/**
+ * Bits   |   Access   |   Name   | Reset  | Description |
+ * [31:8] | Read only  | -------- | ------ |  Reserved   |
+ * [7:0]  | Read-write | REG[7:0] | 0xXX   | ----------- |
+ */
 	int i = 0;
 	char *writeb = "writeb";
 	char *writeh = "writeh";
@@ -108,9 +117,11 @@ void executeCMD(UART_HandleTypeDef *huart){
 	__IO uint8_t *addressb;
 	uint8_t lineFeed[] ={'\n'};
 	uint8_t backspace[] ={'\b'};
+	uint8_t doubleQuote[] = {'"'};
 	uint8_t space[] ={' '};
 	int cmp;
-
+	int getVal;
+	static uint32_t hal_busy_counter = 0;
 	rxString[rxindex] = (char)rxBuffer;
 	rxindex++;
 	HAL_UART_Transmit(&huart1, &rxBuffer, 1, 0); // Echo the character that caused this callback so the user can see what they are typing
@@ -118,9 +129,6 @@ void executeCMD(UART_HandleTypeDef *huart){
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t *)&messageResponse, 6);
 	if (rxBuffer  == del || rxBuffer == BS){
 		rxindex-=2;
-//		printf("rxindex = %d\n", rxindex);
-//		printf("delete mode\n");
-//		HAL_UART_Transmit(&huart1, backspace, sizeof(backspace),0);
 		HAL_UART_Transmit(&huart1, space, sizeof(space),50);
 		HAL_UART_Transmit(&huart1, backspace, sizeof(backspace),50);
 
@@ -133,22 +141,35 @@ void executeCMD(UART_HandleTypeDef *huart){
 		tempString = &rxString[0];
 		printf("response\n");
 		getChar = getSubString(&tempString);
-		cmp = strcmp(getChar, help);   //help
-		if(cmp == 0){
+		if(strcmp(getChar, help) == 0){
 			HAL_UART_Transmit_IT(&huart1, (uint8_t *)messageResponse, 6);
 			printf("help\n");
 		}
-		cmp = strcmp(getChar, writew);  //writew
-		if(cmp == 0){
-			addressw = (uint32_t *)getNumber(&tempString);
-			while(*tempString != '\n'){
-			  //	*(__IO uint8_t *)0x20000000 = 0xa;
-		    *(__IO uint32_t *)addressw = getNumber(&tempString);
-		    addressw++;
-//		    GPIOB->ODR = iState & 1?0x100:0;
-//		    iState++;
+		else if(strcmp(getChar, writew) == 0){
+			getVal = getNumber(&tempString);
+			if(getVal == -1){
+				HAL_UART_Transmit(&huart1,doubleQuote, sizeof(doubleQuote),50);
+				//HAL_UART_Transmit(&huart1,(uint8_t*)getVal, sizeof(getVal),50);
+				HAL_UART_Transmit(&huart1,doubleQuote, sizeof(doubleQuote),50);
+			  HAL_UART_Transmit_IT(&huart1, &messageError[0], sizeof(messageError));
 			}
-		}
+			else{
+			  addressw = (uint32_t *)getVal;
+			  while(*tempString != '\n'){
+			  //	*(__IO uint8_t *)0x20000000 = 0xa;
+			    if((getVal = getNumber(&tempString))!= -1){
+		          *(__IO uint32_t *)addressw = getVal;
+		          addressw++;
+//		        GPIOB->ODR = iState & 1?0x100:0;
+//		        iState++;
+			    }
+			    else{
+			      HAL_UART_Transmit_IT(&huart1, &messageError[0], sizeof(messageError));
+			      break;
+			    }
+		     }
+		   }
+		 }
 		/*cmp = strcmp(getChar, writeh);  //writeh
 		if(cmp == 0){
 			addressh = (uint16_t *)getNumber(&tempString);
@@ -171,18 +192,26 @@ void executeCMD(UART_HandleTypeDef *huart){
 //		    iState++;
 			}
 		}*/
-		cmp = strcmp(getChar, read);
-		if(cmp == 0){
+		else if(strcmp(getChar, read) == 0){
 			addressw = (uint32_t *)getNumber(&tempString);
 			HAL_UART_Transmit(&huart1, (uint8_t *)addressw, sizeof(addressw),0);
 			HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),0);
 			dataByte = getNumber(&tempString);
-			while(dataByte != 1){
+			//if(isdigit(dataByte)){
+			  while(dataByte != 1){
 				dataByte--;
 				addressw++;
 				HAL_UART_Transmit(&huart1, (uint8_t *)addressw, sizeof(addressw),0);
 				HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),0);
-			}
+			  }
+		    //}
+			//else{
+            //  HAL_UART_Transmit_IT(&huart1, &messageError[0], sizeof(messageError));
+			//    hal_busy_counter++;
+		    //}
+		}
+		else{
+		  HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
 		}
 	}
 }

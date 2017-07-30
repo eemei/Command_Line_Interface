@@ -233,53 +233,23 @@ void test_strtonum_given__0x124556__0x1234_123_expect_whitespace(void)
 
 
 
-void test_string_compare_insensitive_given_wRite_and_write(void){
+void test_strtonum_given__0xaaaaaaaa_expect_0xaaaaaaaa(void)
 
-  char *a = "wRite";
+{
 
-  char *b = "write";
+  unsigned long val;
 
-  int cmp = strcmpInsensitive(a, b);
+  char *ptr;
 
-  UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((cmp)), (
+  char value2Parse[] ="0xaaaaaaaa";
 
- ((void *)0)
+  val = strtoul(value2Parse, &ptr, 16);
 
- ), (UNITY_UINT)(97), UNITY_DISPLAY_STYLE_INT);
-
-}
-
-
-
-void test_string_compare_insensitive_given_write_and_writee(void){
-
-  char *a = "writee";
-
-  char *b = "write";
-
-  int cmp = strcmpInsensitive(a, b);
-
-  UnityAssertEqualNumber((UNITY_INT)((-1)), (UNITY_INT)((cmp)), (
+  UnityAssertEqualNumber((UNITY_INT)((0xaaaaaaaa)), (UNITY_INT)((val)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(104), UNITY_DISPLAY_STYLE_INT);
-
-}
-
-void test_string_compare_insensitive_given_write_and_write(void){
-
-  char *a = "write";
-
-  char *b = "write";
-
-  int cmp = strcmpInsensitive(a, b);
-
-  UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((cmp)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(110), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(99), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -301,7 +271,7 @@ void test_sscanf_given_write_read(void)
 
  ((void *)0)
 
- ), (UNITY_UINT)(286), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(275), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -325,7 +295,7 @@ void test_sscanf_given__test(void)
 
  ((void *)0)
 
- ), (UNITY_UINT)(296), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(285), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -349,6 +319,6 @@ void test_sscanf_given__the_write(void)
 
  ((void *)0)
 
- ), (UNITY_UINT)(306), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(295), UNITY_DISPLAY_STYLE_INT);
 
 }

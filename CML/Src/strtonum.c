@@ -12,8 +12,6 @@ Using the C library routine strtol:
             2) on subsequent calls, pass it NULL (instead of the string ptr) and it will continue where it left off with the initial string.
       I've written a couple of basic helper routines:
           getNumber: uses strtol and sscanf (strtol: base 2,8, 10, 16 to long int, again part of C stdlib.h) to return an long integer.
-          loop: returns how many valid value
-
 */
 
 /**
@@ -58,6 +56,7 @@ long int getNumber(char  **str)
 	    	//return 4;
 	    }
 	    if(isalpha((char)*ptr)){
+	      //getSubString(&ptr);
 	      //sscanf(ptr, "%s", data);
 	      //if (strcmpInsensitive(data, aWrite) == 0){
 	        while(*ptr != '\0')
@@ -65,6 +64,7 @@ long int getNumber(char  **str)
 	          if(*ptr == ' ')
 	          {
 	            *str = ptr;
+               //throwError("cannot occur alphabet here.", ERR_CANNOT_RESOLVE_ALPHABET);
 	            return -1;
 	          }
 	          if(*ptr == '\t')
@@ -79,18 +79,13 @@ long int getNumber(char  **str)
 	    }
     if (isdigit((unsigned char)*ptr))
     {
-      val = strtol(*str, &endptr, baseDecimal);
+      val = strtoul(*str, &endptr, baseDecimal);
       if(*ptr == '0')
       {
         detectHex = ptr;
         (detectHex++);
         if(*detectHex == 'x' || *detectHex == 'X'){
-          val = strtol(*str, &endptr, baseHex);
-          //if((val == LONG_MAX || val == LONG_MIN) && errno == ERANGE)
-          //{
-            //*str = endptr;
-            //return -1;
-          //}
+          val = strtoul(*str, &endptr, baseHex);
           *str = endptr;
           return val;
         }
@@ -150,40 +145,16 @@ long int getNumber(char  **str)
 }
 
 /**
-* compare two strings which in case insensitive
+* get the sub-string from a string
+* return the sub-string to lower characters
 */
-
-
-int strcmpInsensitive(char* a)
-{
-  printf("['%s']\n", a);
-  int length = strlen(a);
-  int i = 0;
-  length = length +1;
-  char *lower = (char *)malloc(length);
-  lower[length] = 0;
-
-  // copy all character bytes to the new buffer using tolower
-  for(i = 0; i < length; i++ )
-  {
-      lower[i] = tolower(a[i]);
-      printf("['%c']\n", a[i]);
-  }
-  //cmp = strcmp(lower, b);
-  //remember free memory
-  return 0;
-}
- 
-
 char *getSubString(char **strPtr){
   char *ptr;
   char *str;
   char data[10];
   int length;
   int i = 0;
-  //length = length +1;
   char *lower;
-
 
   ptr = *strPtr;
   while(*ptr != '\0'){
@@ -195,8 +166,6 @@ char *getSubString(char **strPtr){
       ptr+=length;
       *strPtr = ptr;
       length++;
-      //printf("['%s']\n", str);
-      // copy all character bytes to the new buffer using tolower
       for(i = 0; i < length; i++ )
       {
           lower[i] = tolower(str[i]);
@@ -210,27 +179,3 @@ char *getSubString(char **strPtr){
  return 0;
 }
 
- /**
- this function return how many byte data that is valid value and character  
- */
-
-int loop(char **str){
-  char *ptr;
-  ptr = *str;
-  int i=0;
-  int value = 0;
-  while(*ptr !='\n')
-  {
-    value = getNumber(str);
-    printf("value = %d\n", value);
-    ptr = *str;
-    if(value != 4 || value !=-2 || value != 2 || value != 3 ||value != -1)
-    {
-      i++;
-      printf("i = %d\n", i);
-    }
-    printf("i == %d\n", i);
-  }
-
-  return i;
-}

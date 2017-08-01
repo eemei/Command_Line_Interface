@@ -94,11 +94,7 @@ char iState = 0;
 int dataByte;
 uint8_t* base_addr = (uint8_t *)SRAM_BASE;
 
-char *helpMessg[] = {"This shell commands are defined internally. Type 'help' to see this list\n",	\
-					"write <address of register> <data> <data>		write the data into the provide register address\n",	\
-					"example: write 0x20000000 0xa 23				write 0xa into 0x20000000 address \n",	\
-					"												write 23 into 0x200000001 address\n",	\
-					"read <address> <number of byte>				read the data from provide register address\n" };
+uint8_t helpMessg[] = {"This shell commands are defined internally. Type 'help' to see this list \n write <address of register> <data> <data>\t write the data into the provide register address \n\t example: write 0x20000000 0xa 23\n\t\t write 0xa into 0x20000000 address \n\t\t write 23 into 0x200000001 address\n read <address> <number of byte> \t\t read the data from provide register address\n"};
 
 void executeCMD(UART_HandleTypeDef *huart){
 /**
@@ -112,6 +108,8 @@ void executeCMD(UART_HandleTypeDef *huart){
 	char *writew = "writew";
 	char *help ="help";
 	char *read = "read";
+	char *spi ="spi";
+	char *mode = "mode";
 	__IO uint32_t *addressw;
 	__IO uint16_t *addressh;
 	__IO uint8_t *addressb;
@@ -119,9 +117,17 @@ void executeCMD(UART_HandleTypeDef *huart){
 	uint8_t backspace[] ={'\b'};
 	uint8_t doubleQuote[] = {'"'};
 	uint8_t space[] ={' '};
+	uint8_t spimode[] = {"SPI in mode 0 mean CPHOL is low and CPHA is first edge\n"};
 	int cmp;
 	int getVal;
 	static uint32_t hal_busy_counter = 0;
+	uint8_t pData[] = {0x58, 0x68};
+	uint8_t pTxData[3];// = {0x9f,0,0,0};
+	uint8_t pRxData[16] = {0};
+	int indexSpi = 0;
+	char hexNum[2];
+
+
 	rxString[rxindex] = (char)rxBuffer;
 	rxindex++;
 	HAL_UART_Transmit(&huart1, &rxBuffer, 1, 0); // Echo the character that caused this callback so the user can see what they are typing
@@ -142,7 +148,7 @@ void executeCMD(UART_HandleTypeDef *huart){
 		printf("response\n");
 		getChar = getSubString(&tempString);
 		if(strcmp(getChar, help) == 0){
-			HAL_UART_Transmit_IT(&huart1, (uint8_t *)messageResponse, 6);
+			HAL_UART_Transmit_IT(&huart1, (uint8_t *)helpMessg, sizeof(helpMessg));
 			printf("help\n");
 		}
 		else if(strcmp(getChar, writew) == 0){
@@ -177,8 +183,6 @@ void executeCMD(UART_HandleTypeDef *huart){
 			  //	*(__IO uint8_t *)0x20000000 = 0xa;
 		    *(__IO uint16_t *)addressh = getNumber(&tempString);
 		    (uint16_t *)(addressh+0xffff)++;
-//		    GPIOB->ODR = iState & 1?0x100:0;
-//		    iState++;
 			}
 		}
 		cmp = strcmp(getChar, writeb);  //writeb
@@ -188,8 +192,6 @@ void executeCMD(UART_HandleTypeDef *huart){
 			  //	*(__IO uint8_t *)0x20000000 = 0xa;
 		    *(__IO uint8_t *)addressb = getNumber(&tempString);
 		    (uint8_t *)(addressb+0xff)++;
-//		    GPIOB->ODR = iState & 1?0x100:0;
-//		    iState++;
 			}
 		}*/
 		else if(strcmp(getChar, read) == 0){
@@ -209,6 +211,57 @@ void executeCMD(UART_HandleTypeDef *huart){
             //  HAL_UART_Transmit_IT(&huart1, &messageError[0], sizeof(messageError));
 			//    hal_busy_counter++;
 		    //}
+		}
+		else if(strcmp(getChar, spi) == 0){
+			getChar = NULL;
+			getChar = getSubString(&tempString);
+			if(strcmp(getChar, mode) == 0){
+				while(*tempString != '\n'){
+				pTxData[indexSpi]= (uint8_t)getNumber(&tempString);
+				indexSpi++;
+				}
+				indexSpi = 0;
+				/*if(*tempString != '\n'){
+					getVal = 0;
+					getVal = getNumber(&tempString);
+					// |CPOL||CPHA|
+					// 00, 01, 10, 11
+					switch(getVal){
+					 case 0 :
+					   hspi1.Instance->CR1 = SPI_POLARITY_LOW;  //CPOL 1 BIT
+					   hspi1.Instance->CR1 = SPI_PHASE_1EDGE;  //CPHA 0 BIT
+					   break;
+					 case 1 :
+					   hspi1.Instance->CR1 = SPI_POLARITY_LOW;
+					   hspi1.Instance->CR1 = SPI_PHASE_2EDGE;
+					   break;
+					 case 2 :
+					   hspi1.Instance->CR1 = SPI_POLARITY_HIGH;
+					   hspi1.Instance->CR1 = SPI_PHASE_1EDGE;
+					   break;
+					 case 3 :
+				       hspi1.Instance->CR1 = SPI_POLARITY_HIGH;
+					   hspi1.Instance->CR1 = SPI_PHASE_2EDGE;
+					   break;
+					}
+				}
+				else{
+			      hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+			      hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+			      HAL_UART_Transmit_IT(&huart1, &spimode[0], sizeof(spimode));
+				}*/
+				HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
+				  //HAL_SPI_Transmit_IT(&hspi1, data, sizeof(data));
+				  HAL_SPI_TransmitReceive_IT(&hspi1, pTxData, pRxData, sizeof(pTxData));
+				  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
+				  while(indexSpi != 16){
+				  sprintf(hexNum, "%02x",pRxData[indexSpi]);
+				  printf("[%c%c]\n", hexNum[0], hexNum[1]);
+				  indexSpi++;
+				  }
+
+				  //HAL_UART_Transmit_IT(&huart1, &(uint8_t)hexNum, sizeof(hexNum));
+			}
 		}
 		else{
 		  HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
@@ -235,8 +288,9 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
-
+	uint8_t data[] = {0x77};
+	uint8_t pTxData[] = {0x9f,0,0,0};
+	uint8_t pRxData[16];
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -264,8 +318,14 @@ int main(void)
   initialise_monitor_handles();
   //HAL_UART_Transmit_IT(&huart1, (uint8_t *)messageResponse, 4);
 
-  HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
-  //HAL_SPI_Transmit(&hspi1, 10, 1, 0);
+  //HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
+  //HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
+  //hspi1.Instance->CR1 = SPI_POLARITY_HIGH;
+  //hspi1.Instance->CR1 = SPI_PHASE_2EDGE;
+  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
+  //HAL_SPI_Transmit_IT(&hspi1, data, sizeof(data));
+  HAL_SPI_TransmitReceive_IT(&hspi1, pTxData, pRxData, sizeof(pTxData));
+  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
 
 
 
@@ -275,8 +335,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//		HAL_GPIO_TogglePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin);
-//		HAL_Delay(400);
+		HAL_GPIO_TogglePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin);
+		HAL_Delay(400);
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -342,10 +402,10 @@ static void MX_SPI1_Init(void)
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -394,7 +454,16 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(AMBER_LED_GPIO_Port, AMBER_LED_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin : nss_Pin */
+  GPIO_InitStruct.Pin = nss_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(nss_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : AMBER_LED_Pin */
   GPIO_InitStruct.Pin = AMBER_LED_Pin;

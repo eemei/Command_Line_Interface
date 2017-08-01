@@ -1,23 +1,6 @@
-18:03:12 **** Incremental Build of configuration Debug for project CML ****
+18:31:35 **** Incremental Build of configuration Debug for project CML ****
 make all 
-Building file: ../Src/strtonum.c
-Invoking: MCU GCC Compiler
-C:\Users\liewe\Desktop\command\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/liewe/Desktop/command/CML/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/liewe/Desktop/command/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/liewe/Desktop/command/CML/Drivers/CMSIS/Include" -I"C:/Users/liewe/Desktop/command/CML/Inc"  -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/strtonum.d" -MT"Src/strtonum.o" -o "Src/strtonum.o" "../Src/strtonum.c"
-Finished building: ../Src/strtonum.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  21048	    696	   2048	  23792	   5cf0	CML.elf
- 
+make: Nothing to be done for `all'.
 
-18:03:14 Build Finished (took 1s.205ms)
+18:31:35 Build Finished (took 245ms)
 

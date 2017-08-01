@@ -46,6 +46,8 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define nss_Pin GPIO_PIN_4
+#define nss_GPIO_Port GPIOA
 #define AMBER_LED_Pin GPIO_PIN_9
 #define AMBER_LED_GPIO_Port GPIOB
 

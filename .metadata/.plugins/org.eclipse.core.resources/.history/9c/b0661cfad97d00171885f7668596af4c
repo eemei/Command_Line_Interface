@@ -272,7 +272,6 @@ int main(void)
 	//uint8_t data[] = {0x9f, 0x68};
 	//uint8_t pTxData[] = {0x9f,0,0,0};
 	//uint8_t pRxData[16];
-
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/

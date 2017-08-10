@@ -298,6 +298,7 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
   initialise_monitor_handles();
+  printf("hello\n");
   //HAL_UART_Transmit_IT(&huart1, (uint8_t *)messageResponse, 4);
 
   HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);

@@ -1,54 +1,6 @@
-22:43:42 **** Incremental Build of configuration Debug for project CML ****
+23:11:11 **** Incremental Build of configuration Debug for project CML ****
 make all 
-Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-../Src/main.c: In function 'executeCMD':
-../Src/main.c:155:10: warning: unused variable 'pData' [-Wunused-variable]
-  uint8_t pData[] = {0x58, 0x68};
-          ^
-../Src/main.c:154:18: warning: unused variable 'hal_busy_counter' [-Wunused-variable]
-  static uint32_t hal_busy_counter = 0;
-                  ^
-../Src/main.c:152:6: warning: unused variable 'cmp' [-Wunused-variable]
-  int cmp;
-      ^
-../Src/main.c:151:10: warning: unused variable 'spimode' [-Wunused-variable]
-  uint8_t spimode[] = {"SPI in mode 0 mean CPHOL is low and CPHA is first edge\n"};
-          ^
-../Src/main.c:150:16: warning: unused variable 'addressb' [-Wunused-variable]
-  __IO uint8_t *addressb;
-                ^
-../Src/main.c:149:17: warning: unused variable 'addressh' [-Wunused-variable]
-  __IO uint16_t *addressh;
-                 ^
-../Src/main.c:147:8: warning: unused variable 'mode' [-Wunused-variable]
-  char *mode = "mode";
-        ^
-../Src/main.c:142:8: warning: unused variable 'writeh' [-Wunused-variable]
-  char *writeh = "writeh";
-        ^
-../Src/main.c:141:8: warning: unused variable 'writeb' [-Wunused-variable]
-  char *writeb = "writeb";
-        ^
-../Src/main.c:140:6: warning: unused variable 'i' [-Wunused-variable]
-  int i = 0;
-      ^
-Finished building: ../Src/main.c
- 
-Building target: CML.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
-Finished building target: CML.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
-arm-none-eabi-size "CML.elf"
-   text	   data	    bss	    dec	    hex	filename
-  17964	   1052	   2060	  21076	   5254	CML.elf
- 
+make: Nothing to be done for `all'.
 
-22:43:44 Build Finished (took 1s.813ms)
+23:11:12 Build Finished (took 950ms)
 

@@ -364,3 +364,187 @@ arm-none-eabi-size "CML.elf"
    text	   data	    bss	    dec	    hex	filename
   17964	   1052	   2060	  21076	   5254	CML.elf
  
+23:09:25 **** Build of configuration Debug for project CML ****
+make all 
+Building file: ../startup/startup_stm32f103xb.s
+Invoking: MCU GCC Assembler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-as -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -g -o "startup/startup_stm32f103xb.o" "../startup/startup_stm32f103xb.s"
+Finished building: ../startup/startup_stm32f103xb.s
+ 
+Building file: ../Src/ErrorObject.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/ErrorObject.d" -MT"Src/ErrorObject.o" -o "Src/ErrorObject.o" "../Src/ErrorObject.c"
+../Src/ErrorObject.c: In function 'throwError':
+../Src/ErrorObject.c:9:3: warning: implicit declaration of function 'Throw' [-Wimplicit-function-declaration]
+   Throw(errObj);
+   ^
+Finished building: ../Src/ErrorObject.c
+ 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'executeCMD':
+../Src/main.c:155:10: warning: unused variable 'pData' [-Wunused-variable]
+  uint8_t pData[] = {0x58, 0x68};
+          ^
+../Src/main.c:154:18: warning: unused variable 'hal_busy_counter' [-Wunused-variable]
+  static uint32_t hal_busy_counter = 0;
+                  ^
+../Src/main.c:152:6: warning: unused variable 'cmp' [-Wunused-variable]
+  int cmp;
+      ^
+../Src/main.c:151:10: warning: unused variable 'spimode' [-Wunused-variable]
+  uint8_t spimode[] = {"SPI in mode 0 mean CPHOL is low and CPHA is first edge\n"};
+          ^
+../Src/main.c:150:16: warning: unused variable 'addressb' [-Wunused-variable]
+  __IO uint8_t *addressb;
+                ^
+../Src/main.c:149:17: warning: unused variable 'addressh' [-Wunused-variable]
+  __IO uint16_t *addressh;
+                 ^
+../Src/main.c:147:8: warning: unused variable 'mode' [-Wunused-variable]
+  char *mode = "mode";
+        ^
+../Src/main.c:142:8: warning: unused variable 'writeh' [-Wunused-variable]
+  char *writeh = "writeh";
+        ^
+../Src/main.c:141:8: warning: unused variable 'writeb' [-Wunused-variable]
+  char *writeb = "writeb";
+        ^
+../Src/main.c:140:6: warning: unused variable 'i' [-Wunused-variable]
+  int i = 0;
+      ^
+Finished building: ../Src/main.c
+ 
+Building file: ../Src/stm32f1xx_hal_msp.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32f1xx_hal_msp.d" -MT"Src/stm32f1xx_hal_msp.o" -o "Src/stm32f1xx_hal_msp.o" "../Src/stm32f1xx_hal_msp.c"
+Finished building: ../Src/stm32f1xx_hal_msp.c
+ 
+Building file: ../Src/stm32f1xx_it.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32f1xx_it.d" -MT"Src/stm32f1xx_it.o" -o "Src/stm32f1xx_it.o" "../Src/stm32f1xx_it.c"
+Finished building: ../Src/stm32f1xx_it.c
+ 
+Building file: ../Src/strtonum.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/strtonum.d" -MT"Src/strtonum.o" -o "Src/strtonum.o" "../Src/strtonum.c"
+Finished building: ../Src/strtonum.c
+ 
+Building file: ../Src/system_stm32f1xx.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/system_stm32f1xx.d" -MT"Src/system_stm32f1xx.o" -o "Src/system_stm32f1xx.o" "../Src/system_stm32f1xx.c"
+Finished building: ../Src/system_stm32f1xx.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
+ 
+Building file: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
+Invoking: MCU GCC Compiler
+C:\Users\Prince\Desktop\Command_Line_Interface\CML\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"C:/Users/Prince/Desktop/Command_Line_Interface/CML/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o" -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o" "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c"
+Finished building: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
+ 
+Building target: CML.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -specs=nosys.specs -specs=nano.specs -specs=rdimon.specs -lc -lrdimon -T"../STM32F103C8Tx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CML.elf" @"objects.list"   -lm
+Finished building target: CML.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "CML.elf" "CML.bin"
+arm-none-eabi-size "CML.elf"
+   text	   data	    bss	    dec	    hex	filename
+  17964	   1052	   2060	  21076	   5254	CML.elf
+ 
+23:11:11 **** Incremental Build of configuration Debug for project CML ****
+make all 
+make: Nothing to be done for `all'.

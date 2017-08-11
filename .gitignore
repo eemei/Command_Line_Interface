@@ -4,3 +4,7 @@ Src/Backup/
 #for strToNum
 build/*
 !build/Readme.txt
+
+CML/Debug/*
+CML/build/*
+!CML/Debug/objects.mk

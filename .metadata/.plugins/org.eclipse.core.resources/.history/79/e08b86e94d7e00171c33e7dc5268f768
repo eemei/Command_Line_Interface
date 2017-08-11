@@ -100,7 +100,7 @@ int dataByte;
 uint8_t* base_addr = (uint8_t *)SRAM_BASE;
 
 uint8_t helpMessg[] = {"This shell commands are defined internally. Type 'help' to see this list \n write <address of register> <data> <data>\t write the data into the provide register address \n\t example: write 0x20000000 0xa 23\n\t\t write 0xa into 0x20000000 address \n\t\t write 23 into 0x200000001 address\n read <address> <number of byte> \t\t read the data from provide register address\n"};
-uint8_t TxData[6];// = {0x9f,0,0,0};
+uint8_t TxData[3];// = {0x9f,0,0,0};
 uint8_t RxData[16] = {0};
 int indexSpi = 0;
 

@@ -57,7 +57,8 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+volatile int sizeofData = 0;
+uint8_t uartTxBuffetForSpi[] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,11 +71,15 @@ static void MX_SPI1_Init(void);
 /* Private function prototypes -----------------------------------------------*/
 void executeCMD(UART_HandleTypeDef *huart);
 extern void initialise_monitor_handles(void);
-void communicateExternalFlash(SPI_HandleTypeDef *hspi);
+void communicateUsingSpi(SPI_HandleTypeDef *hspi, uint8_t TXSPI[], uint8_t RXSPI[]);
+void flashSectorErase(int address);
+void flashWrite(int adress, uint8_t *data, int size);
+void flashRead(int address, uint8_t *buffer, int size);
+void flashSetWriteEnableFlash();
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-#define MAXCLISTRING	100 	// Biggest string the user will type
+#define MAXCLISTRING	300 	// Biggest string the user will type
 uint8_t rxBuffer = 0; 			// where we store that one character that just came in
 char rxString[MAXCLISTRING]; 	// where we build our string from characters coming in
 int rxindex = 0; 				// index for going though rxString
@@ -87,49 +92,56 @@ uint8_t lineFeed[] ={'\n'};
 uint8_t backspace[] ={'\b'};
 uint8_t doubleQuote[] = {'"'};
 uint8_t space[] ={' '};
-char *messageResponse = "hello\n";
+//char *messageResponse = "hello\n";
 uint8_t messageCommand[] = {"this command does not exit, please type 'help' to see the command list.\n"};
 uint8_t messageError[] = {"is not a digit\n"};
 uint8_t messageAddress[] = {"is an invalid register address. The example of command read should be as: read 0x2XXXXXXX 8\n"};
 char *tempString;
 long int getValue;
 char *getChar;
-char iState = 0;
+//char iState = 0;
 //uint32_t *address;
-int dataByte;
 uint8_t* base_addr = (uint8_t *)SRAM_BASE;
 
 uint8_t helpMessg[] = {"This shell commands are defined internally. Type 'help' to see this list \n write <address of register> <data> <data>\t write the data into the provide register address \n\t example: write 0x20000000 0xa 23\n\t\t write 0xa into 0x20000000 address \n\t\t write 23 into 0x200000001 address\n read <address> <number of byte> \t\t read the data from provide register address\n"};
-uint8_t TxData[6];// = {0x9f,0,0,0};
-uint8_t RxData[16] = {0};
-int indexSpi = 0;
+uint8_t RxData[256] = {0};
+
 
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi){
-	char hexNum[2];
-	uint8_t receiveData[35] = {0};
+	char hexNum[3] = {0 , 0 , ' '};
+	uint8_t receiveData[128] = {0};
 	int indexData = 0;
+	volatile int i = 0;
+	int indexSpi = 0;
+	uint8_t reply[] = {"receive signal:\t"};
+	indexSpi = (int)((hspi1.RxXferSize)*3);
+	int j = 0;
 	HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
-	  while(indexSpi != 16){
-	    sprintf(hexNum, "%02x",RxData[indexSpi]);
-	    printf("[%c%c]\n", hexNum[0], hexNum[1]);
-	    receiveData[indexData] = (uint8_t)hexNum[0];
-	    indexData++;
-	    receiveData[indexData] = (uint8_t)hexNum[1];
-	    indexData++;
-	    indexSpi++;
+	  //while(indexSpi != 16){
+	  while(j != (int)(hspi1.RxXferSize)){
+	    sprintf(hexNum, "%02x",RxData[j]);
+	    printf("[%c%c%c]\n", hexNum[0], hexNum[1], hexNum[2]);
+	    receiveData[i] = (uint8_t)hexNum[0];
+	    i++;
+	    receiveData[i] = (uint8_t)hexNum[1];
+	    i++;
+	    receiveData[i] = (uint8_t)hexNum[3];
+	    i++;
+	    j++;
+	    indexData = i;
 	  }
 	  receiveData[indexData+1] = LF;
-	  indexData = 0;
-	  indexSpi = 0;
+	  __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
+	  //uartTxBuffetForSpi[sizeofData] = {0};
+	  memset( uartTxBuffetForSpi, 0, sizeofData );
+	  HAL_UART_Transmit(&huart1, reply, sizeof(reply),20);
 	  HAL_UART_Transmit_IT(&huart1, &receiveData[0], sizeof(receiveData));
-	  //HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),0);
 }
 
-void communicateExternalFlash(SPI_HandleTypeDef *hspi){
+void communicateUsingSpi(SPI_HandleTypeDef *hspi, uint8_t TXSPI[], uint8_t RXSPI[]){
   HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
-  //HAL_SPI_Transmit_IT(&hspi1, data, sizeof(data));
-  HAL_SPI_TransmitReceive_IT(&hspi1, TxData, RxData, sizeof(TxData));
-  //HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
+  __HAL_UART_DISABLE_IT(&huart1, UART_IT_RXNE);
+  HAL_SPI_TransmitReceive_IT(&hspi1, TXSPI, RxData, sizeofData);
 }
 void executeCMD(UART_HandleTypeDef *huart){
 /**
@@ -138,21 +150,14 @@ void executeCMD(UART_HandleTypeDef *huart){
  * [7:0]  | Read-write | REG[7:0] | 0xXX   | ----------- |
  */
 	int i = 0;
-	char *writeb = "writeb";
-	char *writeh = "writeh";
 	char *writew = "writew";
 	char *help ="help";
 	char *read = "read";
 	char *spi ="spi";
-	char *mode = "mode";
-	__IO uint32_t *addressw;
-	__IO uint16_t *addressh;
-	__IO uint8_t *addressb;
+	__IO uint32_t *addressw = NULL;
 	uint8_t spimode[] = {"SPI in mode 0 mean CPHOL is low and CPHA is first edge\n"};
-	int cmp;
 	int getVal;
-	static uint32_t hal_busy_counter = 0;
-	uint8_t pData[] = {0x58, 0x68};
+	int dataByte;
 
 	rxString[rxindex] = (char)rxBuffer;
 	rxindex++;
@@ -161,8 +166,8 @@ void executeCMD(UART_HandleTypeDef *huart){
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t *)&messageResponse, 6);
 	if (rxBuffer  == del || rxBuffer == BS){
 		rxindex-=2;
-		HAL_UART_Transmit(&huart1, space, sizeof(space),50);
-		HAL_UART_Transmit(&huart1, backspace, sizeof(backspace),50);
+		HAL_UART_Transmit(&huart1, space, sizeof(space),20);
+		HAL_UART_Transmit(&huart1, backspace, sizeof(backspace),20);
 
 		if(rxindex < 0){
 			rxindex = 0;
@@ -180,20 +185,17 @@ void executeCMD(UART_HandleTypeDef *huart){
 		else if(strcmp(getChar, writew) == 0){
 			getVal = getNumber(&tempString);
 			if(getVal == -1){
-				HAL_UART_Transmit(&huart1,doubleQuote, sizeof(doubleQuote),50);
+				HAL_UART_Transmit(&huart1,doubleQuote, sizeof(doubleQuote),20);
 				//HAL_UART_Transmit(&huart1,(uint8_t*)getVal, sizeof(getVal),50);
-				HAL_UART_Transmit(&huart1,doubleQuote, sizeof(doubleQuote),50);
+				HAL_UART_Transmit(&huart1,doubleQuote, sizeof(doubleQuote),20);
 			  HAL_UART_Transmit_IT(&huart1, &messageError[0], sizeof(messageError));
 			}
 			else{
 			  addressw = (uint32_t *)getVal;
 			  while(*tempString != '\n'){
-			  //	*(__IO uint8_t *)0x20000000 = 0xa;
 			    if((getVal = getNumber(&tempString))!= -1){
 		          *(__IO uint32_t *)addressw = getVal;
 		          addressw++;
-//		        GPIOB->ODR = iState & 1?0x100:0;
-//		        iState++;
 			    }
 			    else{
 			      HAL_UART_Transmit_IT(&huart1, &messageError[0], sizeof(messageError));
@@ -210,34 +212,48 @@ void executeCMD(UART_HandleTypeDef *huart){
 			  addressw = (uint32_t *)getNumber(&tempString);
 			  HAL_UART_Transmit(&huart1, (uint8_t *)addressw, sizeof(addressw),50);
 			  HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),50);
-			  dataByte = getNumber(&tempString);
-			  while(dataByte > 1){
-				dataByte--;
-				addressw++;
-				HAL_UART_Transmit(&huart1, (uint8_t *)addressw, sizeof(addressw),50);
-				HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),50);
-			  }
-		    }
+			}
 			else{
               HAL_UART_Transmit_IT(&huart1, &messageError[0], sizeof(messageError));
-			//hal_busy_counter++;
 		    }
+			  while(*tempString == ' ' || *tempString == '\t'){
+			    tempString++;
+			  }
+			  if (isdigit((unsigned char)*tempString)){
+			    while(*tempString != '\n'){
+			      dataByte = getNumber(&tempString);
+			        while(dataByte > 1){
+			        	dataByte--;
+			        	addressw++;
+			        	HAL_UART_Transmit(&huart1, (uint8_t *)addressw, sizeof(addressw),30);
+			        	HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed),50);
+			        }
+			    }
+			  }
+			  else if (isalpha((char)*tempString)){
+                HAL_UART_Transmit_IT(&huart1, &messageError[0], sizeof(messageError));
+		     }
 		}
 		else if(strcmp(getChar, spi) == 0){
 			getChar = NULL;
-			//getChar = getSubString(&tempString);
-			//if(strcmp(getChar, mode) == 0){
 		    while(*tempString == ' ' || *tempString == '\t'){
 		    	tempString++;
-		    	//*str = ptr;
 		    }
 		    if (isdigit((unsigned char)*tempString)){
-				while(*tempString != '\n'){
-				TxData[indexSpi]= (uint8_t)getNumber(&tempString);
-				indexSpi++;
+			  //while(*tempString != '\n'){
+				sizeofData = getNumber(&tempString);
+				if(sizeofData != 0){
+				  memset( uartTxBuffetForSpi, 0, sizeofData );
+				  for(i = 0; i < sizeofData;i++){
+					  uartTxBuffetForSpi[i]= (char)getNumber(&tempString);
+				  }
 				}
-				indexSpi = 0;
-				communicateExternalFlash(&hspi1);
+			    else{
+				   HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
+				 }
+			 // }
+			    //HAL_UART_Transmit_IT(&huart1, spimode, sizeof(spimode));
+			  communicateUsingSpi(&hspi1, uartTxBuffetForSpi, RxData);
 			}
 			 else{
 			   HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
@@ -249,20 +265,34 @@ void executeCMD(UART_HandleTypeDef *huart){
 	}
 }
 
-//void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
-
-//}
-
-
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-
-    //__HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
     executeCMD(&huart1);
     HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
 
 }
 
+
+void flashSectorErase(int address){
+  //sector from 0 -> 15
+  int noByte = 6;
+  uint8_t data[6] = {0 , 0 , ' ', 0, 0};
+  data[2] = address;
+  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
+  HAL_SPI_TransmitReceive_IT(&hspi1, data, RxData, noByte);
+}
+
+void flashWrite(int adress, uint8_t *data, int size){
+	int noByte = 6;
+	uint8_t txdata[6] = {0};
+
+}
+void flashRead(int address, uint8_t *buffer, int size){
+
+}
+void flashSetWriteEnableFlash(){
+
+}
 /* USER CODE END 0 */
 
 int main(void)
@@ -298,19 +328,7 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
   initialise_monitor_handles();
-  //HAL_UART_Transmit_IT(&huart1, (uint8_t *)messageResponse, 4);
-
   HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
-  //HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
-  //hspi1.Instance->CR1 = SPI_POLARITY_HIGH;
-  //hspi1.Instance->CR1 = SPI_PHASE_2EDGE;
-   //HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
-  //HAL_SPI_Transmit_IT(&hspi1, data, sizeof(data));
-   //HAL_SPI_TransmitReceive_IT(&hspi1, pTxData, pRxData, sizeof(pTxData));
-
-
-
-
   /* USER CODE END 2 */
 
   /* Infinite loop */

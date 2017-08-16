@@ -1,6 +1,7 @@
 #include "strtonum.h"
 #include <string.h>
-
+#include "ErrorObject.h"
+//#include "CException.h"
 
 
 /**
@@ -19,20 +20,6 @@ Using the C library routine strtol:
 * - return -1 
 *   when invalid hex value, invalid string exclude "write" & "read", other symbol !@@#$%&*()_+=-`~
 *     -> example 00x12, 10x12, 01x123
-*
-* - return -2
-*   when end of line '\n'
-* 
-* - return 2
-*   when given char is write
-*   case insensitive
-*
-** - return 3
-*   when given char is read
-*   case insensitive
-*
-* - return 4
-*   when given space or tab
 *
 * - return val
 *   valid decimal value or hex value
@@ -64,7 +51,7 @@ long int getNumber(char  **str)
 	          if(*ptr == ' ')
 	          {
 	            *str = ptr;
-               //throwError("cannot occur alphabet here.", ERR_CANNOT_RESOLVE_ALPHABET);
+                //throwError("cannot occur alphabet here.", ERR_CANNOT_RESOLVE_ALPHABET);
 	            return -1;
 	          }
 	          if(*ptr == '\t')
@@ -75,6 +62,7 @@ long int getNumber(char  **str)
 	          ptr++;
 	        }
 	        *str = ptr;
+	        //throwError("cannot occur alphabet here.", ERR_CANNOT_RESOLVE_ALPHABET);
 	        return -1;
 	    }
     if (isdigit((unsigned char)*ptr))
@@ -103,11 +91,13 @@ long int getNumber(char  **str)
               if(*ptr == '\t')
               {
                 *str = ptr;
+                //throwError("cannot invalid type HEX.", ERR_INVALID_HEX);
                 return -1;
               }
               ptr++;
             }
             *str = ptr;
+            //throwError("cannot invalid type HEX.", ERR_INVALID_HEX);
             return -1;
           }
         }
@@ -138,8 +128,10 @@ long int getNumber(char  **str)
       return val;
     }
    else
+	  // throwError("empty string.",ERR_INVALID_VALUE);
 	   return -1;
   }
+ // throwError("empty string.", ERR_EMPTY_STRING);
 
   return -2;
 }

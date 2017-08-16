@@ -72,9 +72,11 @@ static void MX_SPI1_Init(void);
 void executeCMD(UART_HandleTypeDef *huart);
 extern void initialise_monitor_handles(void);
 void communicateUsingSpi(SPI_HandleTypeDef *hspi, uint8_t TXSPI[], uint8_t RXSPI[]);
-void flashSectorErase(int address);
-void flashWrite(int adress, uint8_t *data, int size);
-void flashRead(int address, uint8_t *buffer, int size);
+void flashSectorErase(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3);
+void flashWrite(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3, char *data);
+//void flashWrite(int adress, uint8_t *data, int size);
+//void flashRead(int address, uint8_t *buffer, int size);
+void flashRead(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3, int size);
 void flashSetWriteEnableFlash();
 /* USER CODE END PFP */
 
@@ -103,7 +105,7 @@ char *getChar;
 //uint32_t *address;
 uint8_t* base_addr = (uint8_t *)SRAM_BASE;
 
-uint8_t helpMessg[] = {"This shell commands are defined internally. Type 'help' to see this list \n write <address of register> <data> <data>\t write the data into the provide register address \n\t example: write 0x20000000 0xa 23\n\t\t write 0xa into 0x20000000 address \n\t\t write 23 into 0x200000001 address\n read <address> <number of byte> \t\t read the data from provide register address\n"};
+uint8_t helpMessg[] = {"This shell commands are defined internally. Type 'help' to see this list \n write <address of register> <data> <data>\t write the data into the provide register address \n\t example: write 0x20000000 0xa 23\n\t\t write 0xa into 0x20000000 address \n\t\t write 23 into 0x200000001 address\n read <address> <number of byte> \t read the data from provide register address\n flash erase <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0>\n flash read <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0> <no. of byte read data> \n flash write <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0> <data max. no. of data is 256>\n "};
 uint8_t RxData[256] = {0};
 
 
@@ -143,6 +145,10 @@ void communicateUsingSpi(SPI_HandleTypeDef *hspi, uint8_t TXSPI[], uint8_t RXSPI
   __HAL_UART_DISABLE_IT(&huart1, UART_IT_RXNE);
   HAL_SPI_TransmitReceive_IT(&hspi1, TXSPI, RxData, sizeofData);
 }
+
+/*
+ *
+ */
 void executeCMD(UART_HandleTypeDef *huart){
 /**
  * Bits   |   Access   |   Name   | Reset  | Description |
@@ -154,10 +160,19 @@ void executeCMD(UART_HandleTypeDef *huart){
 	char *help ="help";
 	char *read = "read";
 	char *spi ="spi";
+	char *flash = "flash";
+	char *erase = "erase";
+	//char *sector = "sector";
+	char *write = "write";
+	uint8_t address1 = 0;
+	uint8_t address2 = 0;
+	uint8_t address3 = 0;
+	//uint8_t *data;
 	__IO uint32_t *addressw = NULL;
-	uint8_t spimode[] = {"SPI in mode 0 mean CPHOL is low and CPHA is first edge\n"};
+	//uint8_t spimode[] = {"SPI in mode 0 mean CPHOL is low and CPHA is first edge\n"};
 	int getVal;
 	int dataByte;
+	int size =0;
 
 	rxString[rxindex] = (char)rxBuffer;
 	rxindex++;
@@ -240,7 +255,6 @@ void executeCMD(UART_HandleTypeDef *huart){
 		    	tempString++;
 		    }
 		    if (isdigit((unsigned char)*tempString)){
-			  //while(*tempString != '\n'){
 				sizeofData = getNumber(&tempString);
 				if(sizeofData != 0){
 				  memset( uartTxBuffetForSpi, 0, sizeofData );
@@ -251,13 +265,106 @@ void executeCMD(UART_HandleTypeDef *huart){
 			    else{
 				   HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
 				 }
-			 // }
-			    //HAL_UART_Transmit_IT(&huart1, spimode, sizeof(spimode));
 			  communicateUsingSpi(&hspi1, uartTxBuffetForSpi, RxData);
 			}
 			 else{
 			   HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
 			 }
+		}
+		else if(strcmp(getChar, flash) == 0){
+		  getChar =NULL;
+	      while(*tempString == ' ' || *tempString == '\t'){
+	    	tempString++;
+	      }
+		  if(isalpha((char)*tempString)){
+		    getChar = getSubString(&tempString);
+		    if(strcmp(getChar, erase) == 0){
+		      while(*tempString == ' ' || *tempString == '\t'){
+		    	tempString++;
+		      }
+		      if (isdigit((unsigned char)*tempString)){
+		    	  address1 = (uint8_t)getNumber(&tempString);
+		      }
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		      if (isdigit((unsigned char)*tempString)){
+		    	  address2 = (uint8_t)getNumber(&tempString);
+		      }
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		      if (isdigit((unsigned char)*tempString)){
+		    	  address3 = (uint8_t)getNumber(&tempString);
+		      }
+		      flashSectorErase(address1, address2, address3);
+		    }
+		    else if(strcmp(getChar, write) == 0){
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	if (isdigit((unsigned char)*tempString)){
+		    	  address1 = (uint8_t)getNumber(&tempString);
+		    	}
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	if (isdigit((unsigned char)*tempString)){
+		    	  address2 = (uint8_t)getNumber(&tempString);
+		    	}
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	if (isdigit((unsigned char)*tempString)){
+		          address3 = (uint8_t)getNumber(&tempString);
+		    	}
+				else{
+				  HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
+				}
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	if (isdigit((unsigned char)*tempString)){
+		    		flashWrite(address1, address2, address3, tempString);
+		    	}
+			  }
+		    else if(strcmp(getChar, read) == 0){
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	if (isdigit((unsigned char)*tempString)){
+		    	  address1 = (uint8_t)getNumber(&tempString);
+		    	}
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	if (isdigit((unsigned char)*tempString)){
+		    	  address2 = (uint8_t)getNumber(&tempString);
+		    	}
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	if (isdigit((unsigned char)*tempString)){
+		          address3 = (uint8_t)getNumber(&tempString);
+		    	}
+				else{
+				  HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
+				}
+		    	while(*tempString == ' ' || *tempString == '\t'){
+		    		tempString++;
+		    	}
+		    	if (isdigit((unsigned char)*tempString)){
+		    		size = getNumber(&tempString);
+		    		flashRead(address1, address2, address3, size);
+		    	}
+			  }
+			else{
+			  HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
+			}
+		  }
 		}
 		else{
 		  HAL_UART_Transmit_IT(&huart1, &messageCommand[0], sizeof(messageCommand));
@@ -272,26 +379,70 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 }
 
-
-void flashSectorErase(int address){
+// erase sector
+/*
+ * addressMSB1 = Address 23 bit to 16
+ * addressMSB2 = Address 15 bit to 8
+ * addressMSB2 = Address 7 bit to 0
+ */
+void flashSectorErase(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3){
   //sector from 0 -> 15
-  int noByte = 6;
-  uint8_t data[6] = {0 , 0 , ' ', 0, 0};
-  data[2] = address;
+  int noByte = 4;
+  uint8_t txdata[4] = {0x20, 0 , 0, 0};
+  txdata[1] = AddressMSB1;
+  txdata[2] = AddressMSB2;
+  txdata[3] = AddressMSB3;
   HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
-  HAL_SPI_TransmitReceive_IT(&hspi1, data, RxData, noByte);
+  HAL_SPI_TransmitReceive_IT(&hspi1, txdata, RxData, noByte);
 }
 
-void flashWrite(int adress, uint8_t *data, int size){
-	int noByte = 6;
-	uint8_t txdata[6] = {0};
+void flashWrite(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3, char *data){
+	//1-256 byte
+  int noByte = 4;
+  uint8_t txdata[] = {0, 0, 0, 0, 0, 0, 0, 0};
+  int i = 4;
+  txdata[0] = 0x2;
+  txdata[1] = AddressMSB1;
+  txdata[2] = AddressMSB2;
+  txdata[3] = AddressMSB3;
+  int getNum = 0;
+  flashSetWriteEnableFlash();
+  while(*data != '\n'){
+	  getNum = getNumber(&data);
+	  if(getNum == -1){
+	    break;
+	  }
+	  else{
+	    txdata[i] = (uint8_t)getNum;
+	    i++;
+	  }
+	  noByte = i;
+    }
+
+  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
+  HAL_SPI_TransmitReceive_IT(&hspi1, txdata, RxData, noByte);
 
 }
-void flashRead(int address, uint8_t *buffer, int size){
+void flashRead(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3, int size){
+	  int noByte = 4;
+	  noByte+= size;
+	  uint8_t txdata[] = {0, 0, 0 , 0 , 0, 0, 0, 0};
+	  txdata[0] = 0x3;
+	  txdata[1] = AddressMSB1;
+	  txdata[2] = AddressMSB2;
+	  txdata[3] = AddressMSB3;
+
+	  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive_IT(&hspi1, txdata, RxData, noByte);
 
 }
 void flashSetWriteEnableFlash(){
-
+	  int noByte = 1;
+	  uint8_t txdata[] = {0 , 0, 0};
+	  txdata[0] = 0x6;
+	  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive(&hspi1, txdata, RxData, noByte, 60);
+	  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
 }
 /* USER CODE END 0 */
 

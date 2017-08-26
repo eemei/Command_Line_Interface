@@ -28,29 +28,33 @@ uint8_t lineFeed[] ={'\n'};
 uint8_t backspace[] ={'\b'};
 uint8_t doubleQuote[] = {'"'};
 uint8_t space[] ={' '};
-uint8_t messageCommand[] = {"this command does not exit, please type 'help' to see the command list.\n"};
-uint8_t messageError[] = {"is not a digit\n"};
-uint8_t messageAddress[] = {"is an invalid register address. The example of command read should be as: read 0x2XXXXXXX 8\n"};
-uint8_t messageErrorFlashRead[] = {"is an invalid address. The example of command for flash read the page data should be as: flash read <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0> < max. no. of data to read is 256>\n"};
-uint8_t messageErrorFlashWrite[] = {"is an invalid address. The example of command for flash page program should be as: flash write <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0> < max. no. of data write is 256>\n"};
-uint8_t messageErrorFlashErase[] = {"is an invalid address. The example of command for flash erase sector should be as: flash erase <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0>\n"};
+uint8_t messageCommand[] = {"this command does not exit, please type 'help' to see the command list."};
+uint8_t messageError[] = {"is not a digit"};
+uint8_t messageAddress[] = {"is an invalid register address. The example of command read should be as: read 0x2XXXXXXX 8"};
+uint8_t messageErrorFlashRead[] = {"is an invalid address. The example of command for flash read the page data should be as: flash read <address 24bits> < max. no. of data to read is 256>"};
+uint8_t messageErrorFlashWrite[] = {"is an invalid address. The example of command for flash page program should be as: flash write <address 24bits> < max. no. of data write is 256>"};
+uint8_t messageErrorFlashErase[] = {"is an invalid address. The example of command for flash erase sector should be as: flash erase <address 24bits>"};
+uint8_t messageErrorAddress[] = {"is an invalid address. Maximum address value is 0xffffff"};
 long int getValue;
 char *getChar;
 volatile int sizeofData = 0;
 uint8_t uartTxBuffetForSpi[] = {0};
+volatile int ID;
 
-uint8_t helpMessg[] = {"This shell commands are defined internally. Type 'help' to see this list \n write <address of register> <data> <data>\t write the data into the provide register address \n\t example: write 0x20000000 0xa 23\n\t\t write 0xa into 0x20000000 address \n\t\t write 23 into 0x200000001 address\n read <address> <number of byte> \t read the data from provide register address\n flash erase <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0> \t\t erase sector \n flash read <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0> <no. of byte read data> \t\t read page \n flash write <msb address 23-16 bit> <msb address 15 - 8> <msb address 7 - 0> <data max. no. of data is 256> \t\t page program \n "};
+uint8_t helpMessg[] = {"This shell commands are defined internally. Type 'help' to see this list \n write <address of register> <data> <data>\t write the data into the provide register address \n\t example: write 0x20000000 0xa 23\n\t\t write 0xa into 0x20000000 address \n\t\t write 23 into 0x200000001 address\n read <address> <number of byte> \t read the data from provide register address\n flash erase <address 24 bits> \t\t erase sector \n flash read <address 24 bits> <no. of byte read data> \t\t read page \n flash write <address 24 bits> <data max. no. of data is 256> \t\t page program"};
 uint8_t RxData[256] = {0};
 
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi){
 	char hexNum[3] = {0 , 0 , ' '};
 	uint8_t receiveData[128] = {0};
-	int indexData = 0;
 	volatile int i = 0;
-	int indexSpi = 0;
 	uint8_t reply[] = {"receive signal:\t"};
-	indexSpi = (int)((hspi1.RxXferSize)*3);
+	uint8_t replysignal[] = {"receive signal. please proceed next instruction."};
 	int j = 0;
+	int sizeDataRead = 0;
+
+	sizeDataRead = ((int)(hspi1.RxXferSize))-4;
+	sizeDataRead = (sizeDataRead * 3)+1;
 	HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
 	  while(j != (int)(hspi1.RxXferSize)){
 	    sprintf(hexNum, "%02x",RxData[j]);
@@ -62,13 +66,24 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi){
 	    receiveData[i] = (uint8_t)hexNum[3];
 	    i++;
 	    j++;
-	    indexData = i;
 	  }
-	  receiveData[indexData+1] = LF;
+	  //receiveData[indexData+1] = LF;
 	  __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
 	  memset( uartTxBuffetForSpi, 0, sizeofData );
-	  HAL_UART_Transmit(&huart1, reply, sizeof(reply),20);
-	  HAL_UART_Transmit_IT(&huart1, &receiveData[0], sizeof(receiveData));
+
+	  if(ID == 1 || ID == 2){
+		  HAL_UART_Transmit(&huart1, replysignal, sizeof(replysignal),20);
+	  }
+	  else if(ID == 3){
+		  HAL_UART_Transmit(&huart1, reply, sizeof(reply),20);
+		  HAL_UART_Transmit_IT(&huart1, &receiveData[12], sizeDataRead);
+		  //HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed), 50);
+	  }
+	  else{
+		  HAL_UART_Transmit(&huart1, reply, sizeof(reply),20);
+	    HAL_UART_Transmit_IT(&huart1, receiveData, sizeof(receiveData));
+	  }
+	  ID = 0;
 }
 
 void communicateUsingSpi(SPI_HandleTypeDef *hspi, uint8_t TXSPI[], uint8_t RXSPI[]){
@@ -96,14 +111,10 @@ void executeCMD(UART_HandleTypeDef *huart){
 	char *flash = "flash";
 	char *erase = "erase";
 	char *write = "write";
-	uint8_t address1 = 0;
-	uint8_t address2 = 0;
-	uint8_t address3 = 0;
 	__IO uint32_t *addressw = NULL;
 	//uint8_t spimode[] = {"SPI in mode 0 mean CPHOL is low and CPHA is first edge\n"};
 	int getVal;
 	int dataByte;
-	int size =0;
 
 	rxString[rxindex] = (char)rxBuffer;
 	rxindex++;
@@ -251,6 +262,9 @@ void executeCMD(UART_HandleTypeDef *huart){
 	}
 }
 
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
+  HAL_UART_Transmit(&huart1, lineFeed, sizeof(lineFeed), 50);
+}
 /*void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     executeCMD(&huart1);
@@ -260,128 +274,126 @@ void executeCMD(UART_HandleTypeDef *huart){
 
 // erase sector
 /*
- * addressMSB1 = Address 23 bit to 16
- * addressMSB2 = Address 15 bit to 8
- * addressMSB2 = Address 7 bit to 0
+ * address0 = Address 23 bit to 16
+ * address1 = Address 15 bit to 8
+ * address2 = Address 7 bit to 0
  */
-void flashSectorErase(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3){
+void flashSectorErase(uint8_t Address[]){
   //sector from 0 -> 15
-  int noByte = 4;
+  sizeofData = 4;
   uint8_t txdata[4] = {0x20, 0 , 0, 0};
-  txdata[1] = AddressMSB1;
-  txdata[2] = AddressMSB2;
-  txdata[3] = AddressMSB3;
-  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
-  HAL_SPI_TransmitReceive_IT(&hspi1, txdata, RxData, noByte);
+  txdata[1] = Address[2];  //msb 23-16 bit
+  txdata[2] = Address[1];
+  txdata[3] = Address[0];
+  ID+= 1;
+  communicateUsingSpi(&hspi1, txdata, RxData);
+
 }
 
-void flashWrite(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3, char *data){
+void flashWrite(uint8_t Address[], char *data){
 	//1-256 byte
-  int noByte = 4;
+  sizeofData = 4;
   uint8_t txdata[] = {0, 0, 0, 0, 0, 0, 0, 0};
   int i = 4;
   txdata[0] = 0x2;
-  txdata[1] = AddressMSB1;
-  txdata[2] = AddressMSB2;
-  txdata[3] = AddressMSB3;
+  txdata[1] = Address[2];  //msb 23-16 bit
+  txdata[2] = Address[1];
+  txdata[3] = Address[0];
   int getNum = 0;
   flashSetWriteEnableFlash();
   while(*data != '\n'){
-	  getNum = getNumber(&data);
-	  if(getNum == -1 || getNum == -2){
-	    break;
-	  }
-	  else{
-	    txdata[i] = (uint8_t)getNum;
-	    i++;
-	  }
-	  noByte = i;
+    getNum = getNumber(&data);
+	if(getNum == -1 || getNum == -2){
+	  break;
     }
+	else{
+	  txdata[i] = (uint8_t)getNum;
+	  i++;
+	}
+    sizeofData = i;
+  }
 
-  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
-  HAL_SPI_TransmitReceive_IT(&hspi1, txdata, RxData, noByte);
-
+  ID+= 2;
+  communicateUsingSpi(&hspi1, txdata, RxData);
 }
-void flashRead(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3, int size){
-	  int noByte = 4;
-	  noByte+= size;
-	  uint8_t txdata[] = {0, 0, 0 , 0 , 0, 0, 0, 0};
-	  txdata[0] = 0x3;
-	  txdata[1] = AddressMSB1;
-	  txdata[2] = AddressMSB2;
-	  txdata[3] = AddressMSB3;
 
-	  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
-	  HAL_SPI_TransmitReceive_IT(&hspi1, txdata, RxData, noByte);
-
+void flashRead(uint8_t Address[], int size){
+  sizeofData = 4;
+  sizeofData+= size;
+  uint8_t txdata[] = {0, 0, 0 , 0 , 0, 0, 0, 0};
+  txdata[0] = 0x3;
+  txdata[1] = Address[2];  //msb 23-16 bit
+  txdata[2] = Address[1];
+  txdata[3] = Address[0];
+  ID+= 3;
+  communicateUsingSpi(&hspi1, txdata, RxData);
 }
+
 void flashSetWriteEnableFlash(){
-	  int noByte = 1;
-	  uint8_t txdata[] = {0 , 0, 0};
-	  txdata[0] = 0x6;
-	  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
-	  HAL_SPI_TransmitReceive(&hspi1, txdata, RxData, noByte, 60);
-	  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
+  int noByte = 1;
+  uint8_t txdata[] = {0 , 0, 0};
+  txdata[0] = 0x6;
+  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_RESET);
+  HAL_SPI_TransmitReceive(&hspi1, txdata, RxData, noByte, 60);
+  HAL_GPIO_WritePin(nss_GPIO_Port, nss_Pin, GPIO_PIN_SET);
 }
 
 
 void flashReadInterpreter (char *string){
-	uint8_t address1 = 0;
-	uint8_t address2 = 0;
-	uint8_t address3 = 0;
-	int size =0;
+  int size =0;
+  uint32_t valueAddr = 0;
+  int splitTo = 3;
+  int i =0 ;
+  uint8_t addressArray[3] = {0};
 
+  while(*string == ' ' || *string == '\t'){
+    string++;
+  }
+  if (isdigit((unsigned char)*string)){
+    valueAddr = (uint32_t)getNumber(&string);
+    if(valueAddr > 0xffffff ){
+      HAL_UART_Transmit_IT(&huart1, messageErrorAddress, sizeof(messageErrorAddress));
+    }
+    else{
+      for(i = 0; i < splitTo; i++){
+        addressArray[i] = (valueAddr >> (8 * i)) & 0xff;
+      }
+    }
+  }
+  else
+	HAL_UART_Transmit_IT(&huart1, messageErrorFlashRead, sizeof(messageErrorFlashRead));
+
+  while(*string == ' ' || *string == '\t'){
+	string++;
+  }
+  if (isdigit((unsigned char)*string)){
+	size = getNumber(&string);
+	flashRead(addressArray, size);
+  }
+  else
+    HAL_UART_Transmit_IT(&huart1, messageErrorFlashRead, sizeof(messageErrorFlashRead));
+}
+
+void flashWriteInterpreter(char *string){
+    uint32_t valueAddr = 0;
+    int splitTo = 3;
+    int i =0 ;
+    uint8_t addressArray[3] = {0};
 
     while(*string == ' ' || *string == '\t'){
   	  string++;
 	 }
     if (isdigit((unsigned char)*string)){
-	  address1 = (uint8_t)getNumber(&string);
-	}
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashRead, sizeof(messageErrorFlashRead));
-
-	while(*string == ' ' || *string == '\t'){
-	  string++;
-	}
-	if (isdigit((unsigned char)*string)){
-	  address2 = (uint8_t)getNumber(&string);
-	}
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashRead, sizeof(messageErrorFlashRead));
-
-	while(*string == ' ' || *string == '\t'){
-	  string++;
-	}
-	if (isdigit((unsigned char)*string)){
-	  address3 = (uint8_t)getNumber(&string);
-	}
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashRead, sizeof(messageErrorFlashRead));
-
-	while(*string == ' ' || *string == '\t'){
-	  string++;
-	}
-	if (isdigit((unsigned char)*string)){
-	  size = getNumber(&string);
-	  flashRead(address1, address2, address3, size);
-	}
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashRead, sizeof(messageErrorFlashRead));
-}
-
-void flashWriteInterpreter(char *string){
-	uint8_t address1 = 0;
-	uint8_t address2 = 0;
-	uint8_t address3 = 0;
-
-	while(*string == ' ' || *string == '\t'){
-		string++;
-	}
-
-	if (isdigit((unsigned char)*string)){
-	  address1 = (uint8_t)getNumber(&string);
-	}
+    	valueAddr = (uint32_t)getNumber(&string);
+    	if(valueAddr > 0xffffff ){
+    	  HAL_UART_Transmit_IT(&huart1, messageErrorAddress, sizeof(messageErrorAddress));
+    	}
+    	else{
+    	  for(i = 0; i < splitTo; i++){
+    		  addressArray[i] = (valueAddr >> (8 * i)) & 0xff;
+    	  }
+    	}
+    }
     else
 	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashWrite, sizeof(messageErrorFlashWrite));
 
@@ -389,62 +401,37 @@ void flashWriteInterpreter(char *string){
 		string++;
 	}
 	if (isdigit((unsigned char)*string)){
-	  address2 = (uint8_t)getNumber(&string);
-	}
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashWrite, sizeof(messageErrorFlashWrite));
-
-	while(*string == ' ' || *string == '\t'){
-		string++;
-	}
-	if (isdigit((unsigned char)*string)){
-      address3 = (uint8_t)getNumber(&string);
-	}
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashWrite, sizeof(messageErrorFlashWrite));
-
-	while(*string == ' ' || *string == '\t'){
-		string++;
-	}
-	if (isdigit((unsigned char)*string)){
-		flashWrite(address1, address2, address3, string);
+		flashWrite(addressArray, string);
 	}
     else
 	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashWrite, sizeof(messageErrorFlashWrite));
 }
 
 void flashEraseInterpreter(char *string){
-	uint8_t address1 = 0;
-	uint8_t address2 = 0;
-	uint8_t address3 = 0;
-    while(*string == ' ' || *string == '\t'){
-  	string++;
-    }
-    if (isdigit((unsigned char)*string)){
-  	  address1 = (uint8_t)getNumber(&string);
-    }
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashErase, sizeof(messageErrorFlashErase));
+  uint32_t valueAddr = 0;
+  int splitTo = 3;
+  int i =0 ;
+  uint8_t addressArray[3] = {0};
 
-  	while(*string == ' ' || *string == '\t'){
-  		string++;
-  	}
-    if (isdigit((unsigned char)*string)){
-  	  address2 = (uint8_t)getNumber(&string);
-    }
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashErase, sizeof(messageErrorFlashErase));
+  while(*string == ' ' || *string == '\t'){
+    string++;
+  }
+  if (isdigit((unsigned char)*string)){
+	valueAddr = (uint32_t)getNumber(&string);
+	if(valueAddr > 0xffffff ){
+	  HAL_UART_Transmit_IT(&huart1, messageErrorAddress, sizeof(messageErrorAddress));
+	}
+	else{
+	  for(i = 0; i < splitTo; i++){
+	    addressArray[i] = (valueAddr >> (8 * i)) & 0xff;
+	  }
+	  flashSectorErase(addressArray);
+	}
+ }
 
-  	while(*string == ' ' || *string == '\t'){
-  		string++;
-  	}
-    if (isdigit((unsigned char)*string)){
-  	  address3 = (uint8_t)getNumber(&string);
-  	flashSectorErase(address1, address2, address3);
-    }
-    else
-	  HAL_UART_Transmit_IT(&huart1, messageErrorFlashErase, sizeof(messageErrorFlashErase));
-
-
+ else
+   HAL_UART_Transmit_IT(&huart1, messageErrorFlashErase, sizeof(messageErrorFlashErase));
 }
+
+
 

@@ -11,9 +11,9 @@
 void executeCMD(UART_HandleTypeDef *huart);
 extern void initialise_monitor_handles(void);
 void communicateUsingSpi(SPI_HandleTypeDef *hspi, uint8_t TXSPI[], uint8_t RXSPI[]);
-void flashSectorErase(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3);
-void flashWrite(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3, char *data);
-void flashRead(uint8_t AddressMSB1, uint8_t AddressMSB2, uint8_t AddressMSB3, int size);
+void flashSectorErase(uint8_t Address[]);
+void flashWrite(uint8_t Address[], char *data);
+void flashRead(uint8_t Address[], int size);
 void flashSetWriteEnableFlash();
 void flashReadInterpreter (char *string);
 void flashWriteInterpreter(char *string);

@@ -30,7 +30,7 @@ Here's an appendix of commands. :point_down:
         > flash read 0x000001 5
         > receive 5 byte of data sequentially from the 0x000001 address
 
-5.  `flash write <memory address in 24 bits> <at least one data byte into memory>
+5.  `flash write <memory address in 24 bits> <at least one data byte into memory>`
       - write data into page program 
       - an entire 256 byte page to be programmed
       - example :

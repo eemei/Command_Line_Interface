@@ -23,7 +23,8 @@ Here's an appendix of commands. :point_down:
       > spi 4 0x9f 0 0 0
       > transmit 4 byte and trasnmit buffer is 0x9f 0 0 0
   
-4.  `flash read <memory address in 24 bits> <number of data read can up to 255 byte data>` **for windbond 25Q128FVFG external flash used SPI comunicate**
+**The following command ONLY for windbond 25Q128FVFG external flash used SPI comunicate**  
+4.  `flash read <memory address in 24 bits> <number of data read can up to 255 byte data>` 
       - read data from the given address 
       - allow one or more data bytes to be sequentially read from the memory.
       - example :

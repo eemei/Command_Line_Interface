@@ -83,7 +83,7 @@ int rxindex = 0; 				// index for going though rxString
 #define	del		127				//"del"
 
 
-
+extern event eventStatus;
 
 
 /* USER CODE END 0 */
@@ -121,7 +121,7 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
   initialise_monitor_handles();
-    stateMachine();
+  stateMachine(eventStatus);
   //HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
   /* USER CODE END 2 */
 

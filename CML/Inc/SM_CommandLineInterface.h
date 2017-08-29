@@ -25,6 +25,6 @@ struct stateInfo{
 	state whichState;
 };
 
-void stateMachine(void);
+void stateMachine(event eventStatus);
 
 #endif /* SM_COMMANDLINEINTERFACE_H_ */

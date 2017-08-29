@@ -23,15 +23,14 @@ Here's an appendix of commands. :point_down:
       > spi 4 0x9f 0 0 0
       > transmit 4 byte and trasnmit buffer is 0x9f 0 0 0
   
-**The following command ONLY for windbond 25Q128FVFG external flash used SPI comunicate**  
-4.  `flash read <memory address in 24 bits> <number of data read can up to 255 byte data>` 
+4.  `flash read <memory address in 24 bits> <number of data read can up to 255 byte data>` **for windbond 25Q128FVFG external flash used SPI comunicate**
       - read data from the given address 
       - allow one or more data bytes to be sequentially read from the memory.
       - example :
         > flash read 0x000001 5
         > receive 5 byte of data sequentially from the 0x000001 address
 
-5.  `flash write <memory address in 24 bits> <at least one data byte into memory>`
+5.  `flash write <memory address in 24 bits> <at least one data byte into memory>
       - write data into page program 
       - an entire 256 byte page to be programmed
       - example :

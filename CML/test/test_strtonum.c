@@ -40,8 +40,8 @@ void test_strtonum_given_0x34567_abc_expect_0(void)
   char *ptr; 
   char value2Parse[] ="0x234567 abc";
   val = strtol(value2Parse, &ptr, 10);
-    TEST_ASSERT_EQUAL('x',*ptr);
-     TEST_ASSERT_EQUAL(0, val);
+  TEST_ASSERT_EQUAL('x',*ptr);
+  TEST_ASSERT_EQUAL(0, val);
 }
 
 void test_strtonum_given_0x123456_abc_expect_whitespace(void)

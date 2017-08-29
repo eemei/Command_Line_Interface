@@ -4,37 +4,28 @@
  */
 
 #include <stdio.h>
-#include "stm32f1xx_hal.h"
+//#include "stm32f1xx_hal.h"
 #include "main.h"
 #include "SM_CommandLineInterface.h"
-#include "executeVariousCommand.h"
+#include "hardwareinterface.h"
+//#include "executeVariousCommand.h"
 
-
-extern UART_HandleTypeDef huart1;
-extern uint8_t rxBuffer;
 onState currState = {receiveCharUART};
+event eventStatus;
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-	currState.whichState = receiveEnter;
-	stateMachine();
-}
-
-void stateMachine(){
+void stateMachine(event eventStatus){
 
 	switch(currState.whichState){
 	case receiveCharUART:
-	  HAL_UART_Receive_IT(&huart1, &rxBuffer, 1);
-	 /* if (rxBuffer == 10)
-	   currState.whichState = receiveEnter;
-	  else
-	    currState.whichState = receiveCharUART;*/
+	  if(eventStatus == start_EVT){
+	    uartReceive();
+	  }
 	break;
-	case receiveEnter:
 
-  	  executeCMD(&huart1);
+	case receiveEnter:
+	  response();
   	  currState.whichState = receiveCharUART;
-  	  stateMachine();
+  	  stateMachine(eventStatus);
 	break;
 	default:
 	  currState.whichState = receiveCharUART;
